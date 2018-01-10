@@ -14,6 +14,9 @@ HTTP_HEADERS = {
 
 TEXT_DELIMITER = '\n\5\n'
 
+PAIR_IDX_REGION = 0
+PAIR_IDX_TEXT = 1
+
 # plugin settings
 settings = None
 
@@ -57,9 +60,10 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
             return
 
         texts = result['data']['text'].split(TEXT_DELIMITER)
+        pairs = list(zip(regions, texts))
 
-        for idx, region in enumerate(regions):
-            v.replace(edit, region, texts[idx])
+        for pair in reversed(pairs):
+            v.replace(edit, pair[PAIR_IDX_REGION], pair[PAIR_IDX_TEXT])
 
     def prepareArgs(self, args):
         global settings
