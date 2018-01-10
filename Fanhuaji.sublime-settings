@@ -1,0 +1,23 @@
+{
+    // 除錯模式
+    "debug": false,
+    // API 伺服器位址
+    "api_server": "https://api.zhconvert.org",
+    // API 金鑰（若無請留空）
+    "api_key": "",
+    // 將在 /convert API 端點使用的參數，請參考繁化姬說明文件 https://docs.zhconvert.org
+    "convert_params": {/*
+        "modules": {
+            // 不要使用 "GanToZuo" 模組
+            "GanToZuo": 0,
+        },
+        "userPostReplace": {
+            // 轉換完成後再將 "哦" 轉換為 "喔"
+            "哦": "喔",
+        },
+        "userProtectReplace": [
+            // 保護 "內存" 不被轉換
+            "內存",
+        ],
+    */},
+}

@@ -1,0 +1,73 @@
+[{
+    "caption": "繁化姬 (Fanhuaji): 简体化",
+    "command": "fanhuaji_convert",
+    "args": {
+        "args": {
+            "converter": "Simplified",
+        },
+    },
+}, {
+    "caption": "繁化姬 (Fanhuaji): 繁體化",
+    "command": "fanhuaji_convert",
+    "args": {
+        "args": {
+            "converter": "Traditional",
+        },
+    },
+}, {
+    "caption": "繁化姬 (Fanhuaji): 中国化",
+    "command": "fanhuaji_convert",
+    "args": {
+        "args": {
+            "converter": "China",
+        },
+    },
+}, {
+    "caption": "繁化姬 (Fanhuaji): 香港化",
+    "command": "fanhuaji_convert",
+    "args": {
+        "args": {
+            "converter": "Hongkong",
+        },
+    },
+}, {
+    "caption": "繁化姬 (Fanhuaji): 台灣化",
+    "command": "fanhuaji_convert",
+    "args": {
+        "args": {
+            "converter": "Taiwan",
+        },
+    },
+}, {
+    "caption": "繁化姬 (Fanhuaji): 拼音化",
+    "command": "fanhuaji_convert",
+    "args": {
+        "args": {
+            "converter": "Pinyin",
+        },
+    },
+}, {
+    "caption": "繁化姬 (Fanhuaji): 火星化",
+    "command": "fanhuaji_convert",
+    "args": {
+        "args": {
+            "converter": "Mars",
+        },
+    },
+}, {
+    "caption": "繁化姬 (Fanhuaji): 维基简体化",
+    "command": "fanhuaji_convert",
+    "args": {
+        "args": {
+            "converter": "WikiSimplified",
+        },
+    },
+}, {
+    "caption": "繁化姬 (Fanhuaji): 維基繁體化",
+    "command": "fanhuaji_convert",
+    "args": {
+        "args": {
+            "converter": "WikiTraditional",
+        },
+    },
+}]

@@ -1,0 +1,44 @@
+[{
+    "caption": "Preferences",
+    "mnemonic": "n",
+    "id": "preferences",
+    "children": [{
+        "caption": "Package Settings",
+        "mnemonic": "P",
+        "id": "package-settings",
+        "children": [{
+            "caption": "Fanhuaji",
+            "children": [{
+                "caption": "-"
+            }, {
+                "command": "open_file",
+                "caption": "Settings – Default",
+                "args": {
+                    "file": "${packages}/Fanhuaji/Fanhuaji.sublime-settings"
+                }
+            }, {
+                "command": "open_file",
+                "caption": "Settings – User",
+                "args": {
+                    "file": "${packages}/User/Fanhuaji.sublime-settings"
+                },
+            }, {
+                "caption": "-"
+            }, {
+                "caption": "README",
+                "command": "open_file",
+                "args": {
+                    "file": "${packages}/Fanhuaji/README.md"
+                }
+            }, {
+                "caption": "Changelog",
+                "command": "open_file",
+                "args": {
+                    "file": "${packages}/Fanhuaji/CHANGELOG.md"
+                }
+            }, {
+                "caption": "-"
+            }]
+        }]
+    }]
+}]
