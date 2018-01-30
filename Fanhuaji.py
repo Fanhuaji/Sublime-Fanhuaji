@@ -9,7 +9,7 @@ PLUGIN_DIR = 'Packages/%s' % PLUGIN_NAME
 PLUGIN_SETTINGS = PLUGIN_NAME + '.sublime-settings'
 
 HTTP_HEADERS = {
-    'user-agent': 'Sulime Text Fanhuaji',
+    'user-agent': 'Sublime Text Fanhuaji',
 }
 
 TEXT_DELIMITER = '\n\5\n'
