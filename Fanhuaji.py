@@ -1,3 +1,4 @@
+from collections import namedtuple
 import json
 import sublime
 import sublime_plugin
@@ -8,17 +9,19 @@ PLUGIN_NAME_CHINESE = '繁化姬'
 PLUGIN_DIR = 'Packages/%s' % PLUGIN_NAME
 PLUGIN_SETTINGS = PLUGIN_NAME + '.sublime-settings'
 
+# HTTP headers used in issuing an API call
 HTTP_HEADERS = {
     'user-agent': 'Sublime Text Fanhuaji',
 }
 
+# the delimiter used to concat/split multiple selected text
+# so we could convert multiple text with only a single API call
 TEXT_DELIMITER = '\n\5\n'
-
-PAIR_IDX_REGION = 0
-PAIR_IDX_TEXT = 1
 
 # plugin settings
 settings = None
+
+RegionAndText = namedtuple('RegionAndText', ['region', 'text'])
 
 
 def plugin_loaded():
@@ -60,10 +63,10 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
             return
 
         texts = result['data']['text'].split(TEXT_DELIMITER)
-        pairs = list(zip(regions, texts))
+        blocks = [RegionAndText._make(block) for block in zip(regions, texts)]
 
-        for pair in reversed(pairs):
-            v.replace(edit, pair[PAIR_IDX_REGION], pair[PAIR_IDX_TEXT])
+        for block in reversed(blocks):
+            v.replace(edit, block.region, block.text)
 
     def prepareArgs(self, args):
         global settings
@@ -95,14 +98,15 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
         if 'userProtectReplace' in _args and isinstance(_args['userProtectReplace'], list):
             _args['userProtectReplace'] = '\n'.join(_args['userProtectReplace'])
 
-        # global args
+        # 參數： API 全域
         _args['apiKey'] = settings.get('api_key', '')
         _args['prettify'] = False
-        # node specific args
-        _args['text'] = TEXT_DELIMITER.join([ v.substr(region) for region in regions ])
+
+        # 參數： API convert 端點
+        _args['text'] = TEXT_DELIMITER.join([v.substr(region) for region in regions])
         _args['diffEnable'] = False
 
-        # args from the command
+        # args from ST command
         _args.update(args)
 
         return _args
