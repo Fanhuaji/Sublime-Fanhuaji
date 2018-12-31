@@ -43,36 +43,39 @@ def msg(msg):
 
 
 class FanhuajiConvertCommand(sublime_plugin.TextCommand):
-    def run(self, edit, args={}):
-        v = self.view
-        regions = v.sel()
+    global settings, TEXT_DELIMITER
 
-        args = self.prepareArgs(args)
+    def run(self, edit, args={}):
+        view = self.view
+        regions = view.sel()
+
+        args = self._prepareArgs(args)
 
         try:
-            result = self.doApiConvert(args)
+            result = self._doApiConvert(args)
         except urllib.error.HTTPError as e:
             sublime.error_message(msg('Failed to reach the server: {}'.format(e)))
+
             return
         except ValueError as e:
             sublime.error_message(msg('Failed to decode the returned JSON string...'))
+
             return
 
         if result['code'] != 0:
             sublime.error_message(msg('Error: {}'.format(result['msg'])))
+
             return
 
         texts = result['data']['text'].split(TEXT_DELIMITER)
         blocks = [RegionAndText._make(block) for block in zip(regions, texts)]
 
         for block in reversed(blocks):
-            v.replace(edit, block.region, block.text)
+            view.replace(edit, block.region, block.text)
 
-    def prepareArgs(self, args):
-        global settings
-
-        v = self.view
-        regions = v.sel()
+    def _prepareArgs(self, args):
+        view = self.view
+        regions = view.sel()
 
         _args = settings.get('convert_params', {})
 
@@ -103,7 +106,7 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
         _args['prettify'] = False
 
         # 參數： API convert 端點
-        _args['text'] = TEXT_DELIMITER.join([v.substr(region) for region in regions])
+        _args['text'] = TEXT_DELIMITER.join([view.substr(region) for region in regions])
         _args['diffEnable'] = False
 
         # args from ST command
@@ -111,9 +114,7 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
 
         return _args
 
-    def doApiConvert(self, args):
-        global settings
-
+    def _doApiConvert(self, args):
         if settings.get('debug', False):
             print(msg('Request with: {}'.format(args)))
 
@@ -129,4 +130,5 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
         # execute request
         with urllib.request.urlopen(req) as response:
             html = response.read().decode(encoding)
+
             return json.loads(html)
