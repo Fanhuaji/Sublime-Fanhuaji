@@ -9,35 +9,30 @@
         "children": [{
             "caption": "Fanhuaji",
             "children": [{
-                "caption": "-"
+                "caption": "-",
             }, {
-                "command": "open_file",
-                "caption": "Settings – Default",
+                "caption": "Settings",
+                "command": "edit_settings",
                 "args": {
-                    "file": "${packages}/Fanhuaji/Fanhuaji.sublime-settings"
-                }
-            }, {
-                "command": "open_file",
-                "caption": "Settings – User",
-                "args": {
-                    "file": "${packages}/User/Fanhuaji.sublime-settings"
+                    "base_file": "${packages}/Fanhuaji/Fanhuaji.sublime-settings",
+                    "default": "{\n\t$0\n}\n",
                 },
             }, {
-                "caption": "-"
+                "caption": "-",
             }, {
                 "caption": "README",
                 "command": "open_file",
                 "args": {
-                    "file": "${packages}/Fanhuaji/README.md"
-                }
+                    "file": "${packages}/Fanhuaji/README.md",
+                },
             }, {
                 "caption": "Changelog",
                 "command": "open_file",
                 "args": {
-                    "file": "${packages}/Fanhuaji/CHANGELOG.md"
-                }
+                    "file": "${packages}/Fanhuaji/CHANGELOG.md",
+                },
             }, {
-                "caption": "-"
+                "caption": "-",
             }]
         }]
     }]
