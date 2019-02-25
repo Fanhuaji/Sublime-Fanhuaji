@@ -7,7 +7,7 @@ import urllib
 PLUGIN_NAME = __package__
 PLUGIN_NAME_CHINESE = '繁化姬'
 PLUGIN_DIR = 'Packages/%s' % PLUGIN_NAME
-PLUGIN_SETTINGS = PLUGIN_NAME + '.sublime-settings'
+PLUGIN_SETTINGS = '%s.sublime-settings' % PLUGIN_NAME
 
 # HTTP headers used in issuing an API call
 HTTP_HEADERS = {
@@ -18,16 +18,7 @@ HTTP_HEADERS = {
 # so we could convert multiple text with only a single API call
 TEXT_DELIMITER = '\n\5\n'
 
-# plugin settings
-settings = None
-
 RegionAndText = namedtuple('RegionAndText', ['region', 'text'])
-
-
-def plugin_loaded():
-    global settings
-
-    settings = sublime.load_settings(PLUGIN_SETTINGS)
 
 
 def msg(msg):
@@ -43,11 +34,9 @@ def msg(msg):
 
 
 class FanhuajiConvertCommand(sublime_plugin.TextCommand):
-    global settings, TEXT_DELIMITER
-
     def run(self, edit, args={}):
-        view = self.view
-        regions = view.sel()
+        v = self.view
+        regions = v.sel()
 
         args = self._prepareArgs(args)
 
@@ -57,7 +46,7 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
             sublime.error_message(msg('Failed to reach the server: {}'.format(e)))
 
             return
-        except ValueError as e:
+        except ValueError:
             sublime.error_message(msg('Failed to decode the returned JSON string...'))
 
             return
@@ -71,11 +60,12 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
         blocks = [RegionAndText._make(block) for block in zip(regions, texts)]
 
         for block in reversed(blocks):
-            view.replace(edit, block.region, block.text)
+            v.replace(edit, block.region, block.text)
 
     def _prepareArgs(self, args):
-        view = self.view
-        regions = view.sel()
+        settings = sublime.load_settings(PLUGIN_SETTINGS)
+        v = self.view
+        regions = v.sel()
 
         _args = settings.get('convert_params', {})
 
@@ -106,7 +96,7 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
         _args['prettify'] = False
 
         # 參數： API convert 端點
-        _args['text'] = TEXT_DELIMITER.join([view.substr(region) for region in regions])
+        _args['text'] = TEXT_DELIMITER.join([v.substr(region) for region in regions])
         _args['diffEnable'] = False
 
         # args from ST command
@@ -115,6 +105,8 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
         return _args
 
     def _doApiConvert(self, args):
+        settings = sublime.load_settings(PLUGIN_SETTINGS)
+
         if settings.get('debug', False):
             print(msg('Request with: {}'.format(args)))
 
