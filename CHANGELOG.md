@@ -1,6 +1,12 @@
 # Fanhuaji （繁化姬）
 
 
+## 1.1.0
+
+- Add `注音化` to the context menu.
+- Use a new side-by-side window to edit settings.
+
+
 ## 1.0.2
 
 - Fix a typo.
