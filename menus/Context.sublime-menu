@@ -18,7 +18,7 @@
             },
         },
     }, {
-        "caption": "-"
+        "caption": "-",
     }, {
         "caption": "中国化",
         "command": "fanhuaji_convert",
@@ -44,13 +44,21 @@
             },
         },
     }, {
-        "caption": "-"
+        "caption": "-",
     }, {
         "caption": "拼音化",
         "command": "fanhuaji_convert",
         "args": {
             "args": {
                 "converter": "Pinyin",
+            },
+        },
+    }, {
+        "caption": "注音化",
+        "command": "fanhuaji_convert",
+        "args": {
+            "args": {
+                "converter": "Bopomofo",
             },
         },
     }, {
@@ -62,7 +70,7 @@
             },
         },
     }, {
-        "caption": "-"
+        "caption": "-",
     }, {
         "caption": "维基简体化",
         "command": "fanhuaji_convert",
