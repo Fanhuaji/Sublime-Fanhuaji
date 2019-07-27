@@ -31,6 +31,54 @@ def msg(msg):
     return "[{}] {}".format(PLUGIN_NAME_CHINESE, msg)
 
 
+def get_converters_info(index=None):
+    info = [
+        {"name": "Simplified", "desc": "简体化"},
+        {"name": "Traditional", "desc": "繁體化"},
+        {"name": "China", "desc": "中国化"},
+        {"name": "Hongkong", "desc": "香港化"},
+        {"name": "Taiwan", "desc": "台灣化"},
+        {"name": "Pinyin", "desc": "拼音化"},
+        {"name": "Bopomofo", "desc": "注音化"},
+        {"name": "Mars", "desc": "火星化"},
+        {"name": "WikiSimplified", "desc": "维基简体化"},
+        {"name": "WikiTraditional", "desc": "維基繁體化"},
+    ]
+
+    return info[index] if isinstance(index, int) else info
+
+
+class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
+    def run(self):
+        w = sublime.active_window()
+
+        converter_descs = [
+            "{name} - {desc}".format(name=converter["name"], desc=converter["desc"])
+            for converter in get_converters_info()
+        ]
+
+        w.show_quick_panel(converter_descs, self.on_done)
+
+    def on_done(self, index):
+        if index == -1:
+            return
+
+        w = sublime.active_window()
+
+        converter = get_converters_info(index)
+
+        w.run_command(
+            # fmt: off
+            "fanhuaji_convert",
+            {
+                "args": {
+                    "converter": converter["name"],
+                },
+            }
+            # fmt: on
+        )
+
+
 class FanhuajiConvertCommand(sublime_plugin.TextCommand):
     def run(self, edit, args={}):
         v = self.view
