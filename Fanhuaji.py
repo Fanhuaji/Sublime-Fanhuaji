@@ -1,51 +1,12 @@
-from collections import namedtuple
 import json
 import sublime
 import sublime_plugin
 import urllib
-
-PLUGIN_NAME = __package__
-PLUGIN_NAME_CHINESE = "繁化姬"
-PLUGIN_DIR = "Packages/%s" % PLUGIN_NAME
-PLUGIN_SETTINGS = "%s.sublime-settings" % PLUGIN_NAME
+from .functions import msg, prepareFanhuajiConvertArgs
+from .settings import get_converters_info, get_setting, get_text_delimiter
 
 # HTTP headers used in issuing an API call
 HTTP_HEADERS = {"user-agent": "Sublime Text Fanhuaji"}
-
-# the delimiter used to concat/split multiple selected text
-# so we could convert multiple text with only a single API call
-TEXT_DELIMITER = "\n\5\n"
-
-RegionAndText = namedtuple("RegionAndText", ["region", "text"])
-
-
-def msg(msg):
-    """
-    @brief Format the message for this plugin.
-
-    @param msg The message
-
-    @return The formatted message
-    """
-
-    return "[{}] {}".format(PLUGIN_NAME_CHINESE, msg)
-
-
-def get_converters_info(index=None):
-    info = [
-        {"name": "Simplified", "desc": "简体化"},
-        {"name": "Traditional", "desc": "繁體化"},
-        {"name": "China", "desc": "中国化"},
-        {"name": "Hongkong", "desc": "香港化"},
-        {"name": "Taiwan", "desc": "台灣化"},
-        {"name": "Pinyin", "desc": "拼音化"},
-        {"name": "Bopomofo", "desc": "注音化"},
-        {"name": "Mars", "desc": "火星化"},
-        {"name": "WikiSimplified", "desc": "维基简体化"},
-        {"name": "WikiTraditional", "desc": "維基繁體化"},
-    ]
-
-    return info[index] if isinstance(index, int) else info
 
 
 class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
@@ -53,8 +14,10 @@ class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
         w = sublime.active_window()
 
         converter_descs = [
-            "{name} - {desc}".format(name=converter["name"], desc=converter["desc"])
+            # fmt: off
+            "{name} - {desc}".format(**converter)
             for converter in get_converters_info()
+            # fmt: on
         ]
 
         w.show_quick_panel(converter_descs, self.on_done)
@@ -82,12 +45,13 @@ class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
 class FanhuajiConvertCommand(sublime_plugin.TextCommand):
     def run(self, edit, args={}):
         v = self.view
-        regions = v.sel()
+        sels = v.sel()
 
-        args = self._prepareArgs(args)
+        real_args = prepareFanhuajiConvertArgs(v)
+        real_args.update(args)
 
         try:
-            result = self._doApiConvert(args)
+            result = self._doApiConvert(real_args)
         except urllib.error.HTTPError as e:
             sublime.error_message(msg("Failed to reach the server: {}".format(e)))
 
@@ -102,60 +66,18 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
 
             return
 
-        texts = result["data"]["text"].split(TEXT_DELIMITER)
-        blocks = [RegionAndText._make(block) for block in zip(regions, texts)]
+        texts = result["data"]["text"].split(get_text_delimiter())
+        blocks = [{"region": z[0], "text": z[1]} for z in zip(sels, texts)]
 
         for block in reversed(blocks):
-            v.replace(edit, block.region, block.text)
-
-    def _prepareArgs(self, args):
-        settings = sublime.load_settings(PLUGIN_SETTINGS)
-        v = self.view
-        regions = v.sel()
-
-        _args = settings.get("convert_params", {})
-
-        # 轉換模組
-        if "modules" in _args and isinstance(_args["modules"], dict):
-            _args["modules"] = json.dumps(_args["modules"])
-
-        # 轉換前取代
-        if "userPreReplace" in _args and isinstance(_args["userPreReplace"], dict):
-            _args["userPreReplace"] = "\n".join(
-                ["{}={}".format(_from, _to) for _from, _to in _args["userPreReplace"].items()]
-            )
-
-        # 轉換後取代
-        if "userPostReplace" in _args and isinstance(_args["userPostReplace"], dict):
-            _args["userPostReplace"] = "\n".join(
-                ["{}={}".format(_from, _to) for _from, _to in _args["userPostReplace"].items()]
-            )
-
-        # 保護字詞
-        if "userProtectReplace" in _args and isinstance(_args["userProtectReplace"], list):
-            _args["userProtectReplace"] = "\n".join(_args["userProtectReplace"])
-
-        # 參數： API 全域
-        _args["apiKey"] = settings.get("api_key", "")
-        _args["prettify"] = False
-
-        # 參數： API convert 端點
-        _args["text"] = TEXT_DELIMITER.join([v.substr(region) for region in regions])
-        _args["diffEnable"] = False
-
-        # args from ST command
-        _args.update(args)
-
-        return _args
+            v.replace(edit, block["region"], block["text"])
 
     def _doApiConvert(self, args):
-        settings = sublime.load_settings(PLUGIN_SETTINGS)
-
-        if settings.get("debug", False):
+        if get_setting("debug"):
             print(msg("Request with: {}".format(args)))
 
         encoding = "utf-8"
-        url = settings.get("api_server") + "/convert"
+        url = get_setting("api_server") + "/convert"
 
         # prepare request
         data = urllib.parse.urlencode(args).encode(encoding)
