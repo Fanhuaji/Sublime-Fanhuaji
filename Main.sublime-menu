@@ -5,7 +5,7 @@
         "mnemonic": "P",
         "id": "package-settings",
         "children": [{
-            "caption": "Fanhuaji",
+            "caption": "Fanhuaji （繁化姬）",
             "children": [{
                 "caption": "-",
             }, {
@@ -24,7 +24,7 @@
                     "file": "${packages}/Fanhuaji/README.md",
                 },
             }, {
-                "caption": "Changelog",
+                "caption": "CHANGELOG",
                 "command": "open_file",
                 "args": {
                     "file": "${packages}/Fanhuaji/CHANGELOG.md",

@@ -1,6 +1,6 @@
 [{
     "id": "Fanhuaji",
-    "caption": "繁化姬 (Fanhuaji)",
+    "caption": "Fanhuaji （繁化姬）",
     "children": [{
         "caption": "简体化",
         "command": "fanhuaji_convert",
