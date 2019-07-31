@@ -1,27 +1,27 @@
 import sublime
 
 
-def get_package_name():
+def get_package_name() -> str:
     return __package__
 
 
-def get_package_path():
+def get_package_path() -> str:
     return "Packages/" + get_package_name()
 
 
-def get_settings_file():
+def get_settings_file() -> str:
     return "Fanhuaji.sublime-settings"
 
 
-def get_settings_object():
+def get_settings_object() -> sublime.Settings:
     return sublime.load_settings(get_settings_file())
 
 
-def get_setting(key, default=None):
+def get_setting(key: str, default=None):
     return get_settings_object().get(key, default)
 
 
-def get_text_delimiter():
+def get_text_delimiter() -> str:
     """
     The delimiter used to concat/split multiple selected text,
     so we could convert multiple text with only a single API call.
@@ -30,7 +30,7 @@ def get_text_delimiter():
     return r"\n\5\n"
 
 
-def get_converters_info(index=None):
+def get_converters_info(index=None) -> dict:
     info = [
         {"name": "Simplified", "desc": "简体化"},
         {"name": "Traditional", "desc": "繁體化"},

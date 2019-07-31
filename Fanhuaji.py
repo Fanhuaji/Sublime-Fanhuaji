@@ -10,7 +10,7 @@ HTTP_HEADERS = {"user-agent": "Sublime Text Fanhuaji"}
 
 
 class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
-    def run(self):
+    def run(self) -> None:
         w = sublime.active_window()
 
         converter_descs = [
@@ -22,7 +22,7 @@ class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
 
         w.show_quick_panel(converter_descs, self.on_done)
 
-    def on_done(self, index):
+    def on_done(self, index: int) -> None:
         if index == -1:
             return
 
@@ -43,7 +43,7 @@ class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
 
 
 class FanhuajiConvertCommand(sublime_plugin.TextCommand):
-    def run(self, edit, args={}):
+    def run(self, edit: sublime.Edit, args: dict = {}) -> None:
         v = self.view
         sels = v.sel()
 
@@ -72,7 +72,7 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
         for block in reversed(blocks):
             v.replace(edit, block["region"], block["text"])
 
-    def _doApiConvert(self, args):
+    def _doApiConvert(self, args: dict) -> None:
         if get_setting("debug"):
             print(msg("Request with: {}".format(args)))
 
