@@ -14,12 +14,12 @@ class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
     def run(self) -> None:
         w = sublime.active_window()
 
+        # fmt: off
         converter_descs = [
-            # fmt: off
-            "{name} - {desc}".format(**converter)
+            "{name} - {desc}".format_map(converter)
             for converter in get_converters_info()
-            # fmt: on
         ]
+        # fmt: on
 
         w.show_quick_panel(converter_descs, self.on_done)
 
