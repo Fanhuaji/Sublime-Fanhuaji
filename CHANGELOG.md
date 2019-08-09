@@ -1,6 +1,13 @@
 # Fanhuaji （繁化姬）
 
 
+## 1.2.1
+
+- Add source codes type hinting.
+- Put menu-like files into `menus/`.
+- Put `msg()` in `log.py` rather than `functions.py`.
+
+
 ## 1.2.0
 
 - Add command: `fanhuaji_convert_panel`.
