@@ -1,18 +1,6 @@
 import json
 import sublime
-from .settings import get_package_name, get_setting, get_text_delimiter
-
-
-def msg(msg: str) -> str:
-    """
-    @brief Format the message for this plugin.
-
-    @param msg The message
-
-    @return The formatted message
-    """
-
-    return "[{name}] {msg}".format(name=get_package_name(), msg=msg)
+from .settings import get_setting, get_text_delimiter
 
 
 def prepareFanhuajiConvertArgs(view: sublime.View) -> dict:

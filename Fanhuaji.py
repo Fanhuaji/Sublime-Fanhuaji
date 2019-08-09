@@ -2,7 +2,8 @@ import json
 import sublime
 import sublime_plugin
 import urllib
-from .functions import msg, prepareFanhuajiConvertArgs
+from .functions import prepareFanhuajiConvertArgs
+from .log import msg, print_msg
 from .settings import get_converters_info, get_setting, get_text_delimiter
 
 # HTTP headers used in issuing an API call
@@ -74,7 +75,7 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
 
     def _doApiConvert(self, args: dict) -> None:
         if get_setting("debug"):
-            print(msg("Request with: {}".format(args)))
+            print_msg("Request with: {}".format(args))
 
         encoding = "utf-8"
         url = get_setting("api_server") + "/convert"
