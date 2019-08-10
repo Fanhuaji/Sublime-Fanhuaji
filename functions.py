@@ -3,7 +3,7 @@ import sublime
 from .settings import get_setting, get_text_delimiter
 
 
-def prepareFanhuajiConvertArgs(view: sublime.View) -> dict:
+def prepare_fanhuaji_convert_args(view: sublime.View) -> dict:
     args = get_setting("convert_params")
 
     # 轉換模組

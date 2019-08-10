@@ -2,7 +2,7 @@ import json
 import sublime
 import sublime_plugin
 import urllib
-from .functions import prepareFanhuajiConvertArgs
+from .functions import prepare_fanhuaji_convert_args
 from .log import msg, print_msg
 from .settings import get_converters_info, get_setting, get_text_delimiter
 
@@ -12,43 +12,37 @@ HTTP_HEADERS = {"user-agent": "Sublime Text Fanhuaji"}
 
 class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
     def run(self) -> None:
-        w = sublime.active_window()
-
-        # fmt: off
-        converter_descs = [
-            "{name} - {desc}".format_map(converter)
-            for converter in get_converters_info()
-        ]
-        # fmt: on
-
-        w.show_quick_panel(converter_descs, self.on_done)
+        sublime.active_window().show_quick_panel(
+            # fmt: off
+            [
+                "{name} - {desc}".format_map(converter)
+                for converter in get_converters_info()
+            ],
+            # fmt: on
+            self.on_done
+        )
 
     def on_done(self, index: int) -> None:
         if index == -1:
             return
 
-        w = sublime.active_window()
-
         converter = get_converters_info(index)
 
-        w.run_command(
-            # fmt: off
+        sublime.active_window().run_command(
             "fanhuaji_convert",
+            # fmt: off
             {
                 "args": {
                     "converter": converter["name"],
                 },
-            }
+            },
             # fmt: on
         )
 
 
 class FanhuajiConvertCommand(sublime_plugin.TextCommand):
     def run(self, edit: sublime.Edit, args: dict = {}) -> None:
-        v = self.view
-        sels = v.sel()
-
-        real_args = prepareFanhuajiConvertArgs(v)
+        real_args = prepare_fanhuaji_convert_args(self.view)
         real_args.update(args)
 
         try:
@@ -68,10 +62,10 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
             return
 
         texts = result["data"]["text"].split(get_text_delimiter())
-        blocks = [{"region": z[0], "text": z[1]} for z in zip(sels, texts)]
+        blocks = [{"region": z[0], "text": z[1]} for z in zip(self.view.sel(), texts)]
 
         for block in reversed(blocks):
-            v.replace(edit, block["region"], block["text"])
+            self.view.replace(edit, block["region"], block["text"])
 
     def _doApiConvert(self, args: dict) -> None:
         if get_setting("debug"):
