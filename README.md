@@ -1,11 +1,15 @@
-Sublime-Fanhuaji （繁化姬）
-================
+# Sublime-Fanhuaji （繁化姬）
 
-本倉庫為[繁化姬](https://zhconvert.org)的 [Sublime Text 3](https://www.sublimetext.com/) 插件。
+<a href="https://packagecontrol.io/packages/Fanhuaji"><img alt="Package Control" src="https://img.shields.io/packagecontrol/dt/Fanhuaji"></a>
+<a href="https://github.com/Fanhuaji/Sublime-Fanhuaji/tags"><img alt="GitHub tag (latest SemVer)" src="https://img.shields.io/github/tag/Fanhuaji/Sublime-Fanhuaji?logo=github"></a>
+<a href="https://github.com/Fanhuaji/Sublime-Fanhuaji/blob/master/LICENSE"><img alt="Project license" src="https://img.shields.io/github/license/Fanhuaji/Sublime-Fanhuaji?logo=github"></a>
+<a href="https://github.com/Fanhuaji/Sublime-Fanhuaji/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Fanhuaji/Sublime-Fanhuaji?logo=github"></a>
+<a href="https://www.paypal.me/jfcherng/5usd" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-blue.svg?logo=paypal" /></a>
+
+本倉庫為[繁化姬](https://zhconvert.org)的 [Sublime Text 3](https://www.sublimetext.com) 插件。
 
 
-安裝方式
-========
+## 安裝方式
 
 - 使用 Package Control （推薦）：
   在 `Package Control` 中搜尋 `Fanhuaji` 安裝即可。
@@ -13,8 +17,7 @@ Sublime-Fanhuaji （繁化姬）
 - 或是將本倉庫複製到 `Sublime Text` 的 `Data/Packages/` 資料夾中。
 
 
-轉換模式
-========
+## 轉換模式
 
 - 简体化：将文字转换为简体。
 - 繁體化：將文字轉換為繁體。
@@ -28,14 +31,12 @@ Sublime-Fanhuaji （繁化姬）
 - 維基繁體化：只使用維基百科的詞庫將文字轉換為繁體。
 
 
-功能範例
-========
+## 功能範例
 
 ![](https://raw.githubusercontent.com/Fanhuaji/Sublime-Fanhuaji/master/docs/images/convert_taiwan.gif)
 
 
-插件設定
-========
+## 插件設定
 
 ```javascript
 {
@@ -64,15 +65,13 @@ Sublime-Fanhuaji （繁化姬）
 ```
 
 
-商業使用
-========
+## 商業使用
 
 繁化姬的文字轉換服務在一般使用下為免費，但若是商業使用將酌收費用。
 詳情請見[繁化姬商業使用](https://docs.zhconvert.org/commercial)。
 
 
-錯誤回報
-========
+## 錯誤回報
 
 本插件僅使用繁化姬的網路 API ，並不實作文字轉換。
 因此，如果您發現有「轉換錯誤」，請回報至以下任一位置。
@@ -82,14 +81,7 @@ Sublime-Fanhuaji （繁化姬）
 - [繁化姬 Telegram 群組](https://t.me/fanhuaji)
 
 
-相關連結
-========
+## 相關連結
 
 - [繁化姬](https://zhconvert.org)
 - [繁化姬 說明文件](https://docs.zhconvert.org)
-
-
-捐贈 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ATXYY9Y78EQ3Y" target="_blank"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" /></a>
-====
-
-想請我喝杯咖啡？
