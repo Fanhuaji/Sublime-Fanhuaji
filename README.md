@@ -1,10 +1,11 @@
 # Sublime-Fanhuaji （繁化姬）
 
-<a href="https://packagecontrol.io/packages/Fanhuaji"><img alt="Package Control" src="https://img.shields.io/packagecontrol/dt/Fanhuaji"></a>
-<a href="https://github.com/Fanhuaji/Sublime-Fanhuaji/tags"><img alt="GitHub tag (latest SemVer)" src="https://img.shields.io/github/tag/Fanhuaji/Sublime-Fanhuaji?logo=github"></a>
-<a href="https://github.com/Fanhuaji/Sublime-Fanhuaji/blob/master/LICENSE"><img alt="Project license" src="https://img.shields.io/github/license/Fanhuaji/Sublime-Fanhuaji?logo=github"></a>
-<a href="https://github.com/Fanhuaji/Sublime-Fanhuaji/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Fanhuaji/Sublime-Fanhuaji?logo=github"></a>
-<a href="https://www.paypal.me/jfcherng/5usd" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-blue.svg?logo=paypal" /></a>
+<a href="https://travis-ci.org/Fanhuaji/Sublime-Fanhuaji"><img alt="Travis (.org) branch" src="https://img.shields.io/travis/Fanhuaji/Sublime-Fanhuaji/master?style=flat-square"></a>
+<a href="https://packagecontrol.io/packages/Fanhuaji"><img alt="Package Control" src="https://img.shields.io/packagecontrol/dt/Fanhuaji?style=flat-square"></a>
+<a href="https://github.com/Fanhuaji/Sublime-Fanhuaji/tags"><img alt="GitHub tag (latest SemVer)" src="https://img.shields.io/github/tag/Fanhuaji/Sublime-Fanhuaji?style=flat-square&logo=github"></a>
+<a href="https://github.com/Fanhuaji/Sublime-Fanhuaji/blob/master/LICENSE"><img alt="Project license" src="https://img.shields.io/github/license/Fanhuaji/Sublime-Fanhuaji?style=flat-square&logo=github"></a>
+<a href="https://github.com/Fanhuaji/Sublime-Fanhuaji/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Fanhuaji/Sublime-Fanhuaji?style=flat-square&logo=github"></a>
+<a href="https://www.paypal.me/jfcherng/5usd" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-blue.svg?style=flat-square&logo=paypal" /></a>
 
 本倉庫為[繁化姬](https://zhconvert.org)的 [Sublime Text 3](https://www.sublimetext.com) 插件。
 
@@ -33,7 +34,7 @@
 
 ## 功能範例
 
-![](https://raw.githubusercontent.com/Fanhuaji/Sublime-Fanhuaji/master/docs/images/convert_taiwan.gif)
+![screenshot](https://raw.githubusercontent.com/Fanhuaji/Sublime-Fanhuaji/master/docs/images/convert_taiwan.gif)
 
 
 ## 插件設定
