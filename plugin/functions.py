@@ -1,10 +1,11 @@
 import json
 import sublime
+from typing import Any, Dict
 from .settings import get_setting, get_text_delimiter
 
 
-def prepare_fanhuaji_convert_args(view: sublime.View) -> dict:
-    args = get_setting("convert_params")
+def prepare_fanhuaji_convert_args(view: sublime.View) -> Dict[str, Any]:
+    args = get_setting("convert_params")  # type: Dict[str, Any]
 
     # 轉換模組
     if "modules" in args and isinstance(args["modules"], dict):
@@ -13,13 +14,13 @@ def prepare_fanhuaji_convert_args(view: sublime.View) -> dict:
     # 轉換前取代
     if "userPreReplace" in args and isinstance(args["userPreReplace"], dict):
         args["userPreReplace"] = "\n".join(
-            ["{}={}".format(_from, _to) for _from, _to in args["userPreReplace"].items()]
+            ["{}={}".format(from_, to_) for from_, to_ in args["userPreReplace"].items()]
         )
 
     # 轉換後取代
     if "userPostReplace" in args and isinstance(args["userPostReplace"], dict):
         args["userPostReplace"] = "\n".join(
-            ["{}={}".format(_from, _to) for _from, _to in args["userPostReplace"].items()]
+            ["{}={}".format(from_, to_) for from_, to_ in args["userPostReplace"].items()]
         )
 
     # 保護字詞
@@ -31,7 +32,11 @@ def prepare_fanhuaji_convert_args(view: sublime.View) -> dict:
     args["prettify"] = False
 
     # 參數： API convert 端點
-    args["text"] = get_text_delimiter().join([view.substr(region) for region in view.sel()])
+    args["text"] = get_text_delimiter().join(
+        [
+            view.substr(region) for region in view.sel()  # type: ignore
+        ]
+    )
     args["diffEnable"] = False
 
     return args

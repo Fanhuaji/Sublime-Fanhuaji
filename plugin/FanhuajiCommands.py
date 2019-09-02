@@ -1,10 +1,11 @@
 import json
 import sublime
 import sublime_plugin
-import urllib
+from typing import Any, Dict
+from urllib import error as url_error, request as url_request, parse as url_parse
 from .functions import prepare_fanhuaji_convert_args
 from .log import msg, print_msg
-from .settings import get_converters_info, get_setting, get_text_delimiter
+from .settings import get_all_converters_info, get_converters_info, get_setting, get_text_delimiter
 
 # HTTP headers used in issuing an API call
 HTTP_HEADERS = {"user-agent": "Sublime Text Fanhuaji"}
@@ -16,7 +17,7 @@ class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
             # fmt: off
             [
                 "{name} - {desc}".format_map(converter)
-                for converter in get_converters_info()
+                for converter in get_all_converters_info()
             ],
             # fmt: on
             self.on_done
@@ -41,23 +42,23 @@ class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
 
 
 class FanhuajiConvertCommand(sublime_plugin.TextCommand):
-    def run(self, edit: sublime.Edit, args: dict = {}) -> None:
+    def run(self, edit: sublime.Edit, args: Dict[str, Any] = {}) -> None:
         real_args = prepare_fanhuaji_convert_args(self.view)
         real_args.update(args)
 
         try:
             result = self._doApiConvert(real_args)
-        except urllib.error.HTTPError as e:
+        except url_error.HTTPError as e:
             sublime.error_message(msg("Failed to reach the server: {}".format(e)))
 
             return
-        except ValueError:
-            sublime.error_message(msg("Failed to decode the returned JSON string..."))
+        except ValueError as e:
+            sublime.error_message(msg("Failed to decode the returned JSON: {}".format(e)))
 
             return
 
-        if result["code"] != 0:
-            sublime.error_message(msg("Error: {}".format(result["msg"])))
+        if int(result["code"]) != 0:
+            sublime.error_message(msg("Error message from the server: {}".format(result["msg"])))
 
             return
 
@@ -67,7 +68,7 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
         for block in reversed(blocks):
             self.view.replace(edit, block["region"], block["text"])
 
-    def _doApiConvert(self, args: dict) -> None:
+    def _doApiConvert(self, args: Dict[str, Any]) -> Dict[str, Any]:
         if get_setting("debug"):
             print_msg("Request with: {}".format(args))
 
@@ -75,13 +76,13 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
         url = get_setting("api_server") + "/convert"
 
         # prepare request
-        data = urllib.parse.urlencode(args).encode(encoding)
-        req = urllib.request.Request(url, data)
+        data = url_parse.urlencode(args).encode(encoding)
+        req = url_request.Request(url, data)
         for key, val in HTTP_HEADERS.items():
             req.add_header(key, val)
 
         # execute request
-        with urllib.request.urlopen(req) as response:
+        with url_request.urlopen(req) as response:
             html = response.read().decode(encoding)
 
             return json.loads(html)

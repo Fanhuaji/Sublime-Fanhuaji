@@ -1,8 +1,16 @@
 import sublime
+from typing import Any, Dict, List, Optional
 
 
 def get_package_name() -> str:
-    return __package__
+    """
+    @brief Getsthe package name.
+
+    @return The package name.
+    """
+
+    # anyway, the top module should always be the plugin name
+    return __package__.partition(".")[0]
 
 
 def get_package_path() -> str:
@@ -10,14 +18,14 @@ def get_package_path() -> str:
 
 
 def get_settings_file() -> str:
-    return "Fanhuaji.sublime-settings"
+    return get_package_name() + ".sublime-settings"
 
 
 def get_settings_object() -> sublime.Settings:
     return sublime.load_settings(get_settings_file())
 
 
-def get_setting(key: str, default=None):
+def get_setting(key: str, default: Optional[Any] = None) -> Any:
     return get_settings_object().get(key, default)
 
 
@@ -30,8 +38,12 @@ def get_text_delimiter() -> str:
     return r"\n\5\n"
 
 
-def get_converters_info(index=None) -> dict:
-    info = [
+def get_converters_info(index: int) -> Dict[str, Any]:
+    return get_all_converters_info()[index]
+
+
+def get_all_converters_info() -> List[Dict[str, Any]]:
+    return [
         {"name": "Simplified", "desc": "简体化"},
         {"name": "Traditional", "desc": "繁體化"},
         {"name": "China", "desc": "中国化"},
@@ -43,5 +55,3 @@ def get_converters_info(index=None) -> dict:
         {"name": "WikiSimplified", "desc": "维基简体化"},
         {"name": "WikiTraditional", "desc": "維基繁體化"},
     ]
-
-    return info[index] if isinstance(index, int) else info
