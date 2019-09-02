@@ -1,2 +1,9 @@
+# OS
 .DS_Store
-__pycache__
+Desktop.ini
+Thumbs.db
+
+# Python
+*.py[cod]
+.mypy_cache/
+__pycache__/
