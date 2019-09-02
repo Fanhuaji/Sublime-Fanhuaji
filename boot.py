@@ -1,7 +1,7 @@
 from .plugin import set_up, tear_down
 
 # main plugin classes
-from .plugin.FanhuajiCommands import *
+from .plugin.sublime_text.FanhuajiCommands import *
 
 
 def plugin_loaded() -> None:

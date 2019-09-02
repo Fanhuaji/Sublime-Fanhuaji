@@ -3,9 +3,9 @@ import sublime
 import sublime_plugin
 from typing import Any, Dict
 from urllib import error as url_error, request as url_request, parse as url_parse
-from .functions import prepare_fanhuaji_convert_args
-from .log import msg, print_msg
-from .settings import get_all_converters_info, get_converters_info, get_setting, get_text_delimiter
+from ..functions import prepare_fanhuaji_convert_args
+from ..log import msg, print_msg
+from ..settings import get_all_converters_info, get_converters_info, get_setting, get_text_delimiter
 
 # HTTP headers used in issuing an API call
 HTTP_HEADERS = {"user-agent": "Sublime Text Fanhuaji"}
