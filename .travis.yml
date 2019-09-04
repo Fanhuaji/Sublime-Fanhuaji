@@ -1,7 +1,7 @@
 dist: bionic
 env:
     global:
-        - PACKAGE="Fanhuaji" # Package name
+        - PACKAGE="AutoSetIndentation" # Package name
         - SUBLIME_TEXT_VERSION="3"
 language: python
 python:
@@ -14,4 +14,5 @@ install:
     - pip install -U -r requirements.txt
 script:
     - mypy -p plugin
+    - flake8 plugin
     - black --check .

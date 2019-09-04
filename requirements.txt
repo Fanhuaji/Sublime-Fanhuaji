@@ -2,4 +2,5 @@
 --index https://pypi.python.org/simple/
 
 black
+flake8
 mypy

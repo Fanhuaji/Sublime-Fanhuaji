@@ -1,0 +1,4 @@
+[flake8]
+exclude = plugin/libs
+ignore = E203,E262,W503
+max-line-length = 100

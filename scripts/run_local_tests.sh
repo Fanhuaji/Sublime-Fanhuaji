@@ -6,6 +6,7 @@ PROJECT_DIR="${SCRIPT_DIR}/.."
 pushd "${PROJECT_DIR}" || exit
 
 mypy -p plugin
+flake8 plugin
 black --check .
 
 popd || exit
