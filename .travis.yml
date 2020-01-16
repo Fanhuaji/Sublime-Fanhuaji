@@ -1,11 +1,11 @@
 dist: bionic
 env:
     global:
-        - PACKAGE="AutoSetIndentation" # Package name
+        - PACKAGE="Fanhuaji" # Package name
         - SUBLIME_TEXT_VERSION="3"
 language: python
 python:
-    - "3.7"
+    - "3.8"
 before_install:
     # remove potential mypy cache
     - rm -rf .mypy_cache/
