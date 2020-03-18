@@ -1,11 +1,11 @@
 # Sublime-Fanhuaji （繁化姬）
 
-<a href="https://travis-ci.org/Fanhuaji/Sublime-Fanhuaji"><img alt="Travis (.org) branch" src="https://img.shields.io/travis/Fanhuaji/Sublime-Fanhuaji/master?style=flat-square"></a>
-<a href="https://packagecontrol.io/packages/Fanhuaji"><img alt="Package Control" src="https://img.shields.io/packagecontrol/dt/Fanhuaji?style=flat-square"></a>
-<a href="https://github.com/Fanhuaji/Sublime-Fanhuaji/tags"><img alt="GitHub tag (latest SemVer)" src="https://img.shields.io/github/tag/Fanhuaji/Sublime-Fanhuaji?style=flat-square&logo=github"></a>
-<a href="https://github.com/Fanhuaji/Sublime-Fanhuaji/blob/master/LICENSE"><img alt="Project license" src="https://img.shields.io/github/license/Fanhuaji/Sublime-Fanhuaji?style=flat-square&logo=github"></a>
-<a href="https://github.com/Fanhuaji/Sublime-Fanhuaji/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Fanhuaji/Sublime-Fanhuaji?style=flat-square&logo=github"></a>
-<a href="https://www.paypal.me/jfcherng/5usd" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-blue.svg?style=flat-square&logo=paypal" /></a>
+[![Travis (.org) branch](https://img.shields.io/travis/Fanhuaji/Sublime-Fanhuaji/master?style=flat-square)](https://travis-ci.org/Fanhuaji/Sublime-Fanhuaji)
+[![Package Control](https://img.shields.io/packagecontrol/dt/Fanhuaji?style=flat-square)](https://packagecontrol.io/packages/Fanhuaji)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/Fanhuaji/Sublime-Fanhuaji?style=flat-square&logo=github)](https://github.com/Fanhuaji/Sublime-Fanhuaji/tags)
+[![Project license](https://img.shields.io/github/license/Fanhuaji/Sublime-Fanhuaji?style=flat-square&logo=github)](https://github.com/Fanhuaji/Sublime-Fanhuaji/blob/master/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/Fanhuaji/Sublime-Fanhuaji?style=flat-square&logo=github)](https://github.com/Fanhuaji/Sublime-Fanhuaji/stargazers)
+[![Donate to this project using Paypal](https://img.shields.io/badge/paypal-donate-blue.svg?style=flat-square&logo=paypal)](https://www.paypal.me/jfcherng/5usd)
 
 本倉庫為[繁化姬](https://zhconvert.org)的 [Sublime Text 3](https://www.sublimetext.com) 插件。
 
