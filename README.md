@@ -9,14 +9,12 @@
 
 本倉庫為[繁化姬](https://zhconvert.org)的 [Sublime Text 3](https://www.sublimetext.com) 插件。
 
-
 ## 安裝方式
 
 - 使用 Package Control （推薦）：
   在 `Package Control` 中搜尋 `Fanhuaji` 安裝即可。
 
 - 或是將本倉庫複製到 `Sublime Text` 的 `Data/Packages/` 資料夾中。
-
 
 ## 轉換模式
 
@@ -31,11 +29,9 @@
 - 维基简体化：只使用维基百科的词库将文字转换为简体。
 - 維基繁體化：只使用維基百科的詞庫將文字轉換為繁體。
 
-
 ## 功能範例
 
 ![screenshot](https://raw.githubusercontent.com/Fanhuaji/Sublime-Fanhuaji/master/docs/images/convert_taiwan.gif)
-
 
 ## 插件設定
 
@@ -65,12 +61,10 @@
 }
 ```
 
-
 ## 商業使用
 
 繁化姬的文字轉換服務在一般使用下為免費，但若是商業使用將酌收費用。
 詳情請見[繁化姬商業使用](https://docs.zhconvert.org/commercial)。
-
 
 ## 錯誤回報
 
@@ -80,7 +74,6 @@
 - [繁化姬](https://zhconvert.org)
 - [繁化姬 GitHub 討論頁](https://github.com/Fanhuaji/discussion/issues)
 - [繁化姬 Telegram 群組](https://t.me/fanhuaji)
-
 
 ## 相關連結
 
