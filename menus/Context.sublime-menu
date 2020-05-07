@@ -1,91 +1,107 @@
-[{
-    "id": "Fanhuaji",
-    "caption": "Fanhuaji （繁化姬）",
-    "children": [{
-        "caption": "简体化",
-        "command": "fanhuaji_convert",
-        "args": {
-            "args": {
-                "converter": "Simplified",
+[
+    {
+        "id": "Fanhuaji",
+        "caption": "Fanhuaji （繁化姬）",
+        "children": [
+            {
+                "caption": "简体化",
+                "command": "fanhuaji_convert",
+                "args": {
+                    "args": {
+                        "converter": "Simplified"
+                    }
+                }
             },
-        },
-    }, {
-        "caption": "繁體化",
-        "command": "fanhuaji_convert",
-        "args": {
-            "args": {
-                "converter": "Traditional",
+            {
+                "caption": "繁體化",
+                "command": "fanhuaji_convert",
+                "args": {
+                    "args": {
+                        "converter": "Traditional"
+                    }
+                }
             },
-        },
-    }, {
-        "caption": "-",
-    }, {
-        "caption": "中国化",
-        "command": "fanhuaji_convert",
-        "args": {
-            "args": {
-                "converter": "China",
+            {
+                "caption": "-"
             },
-        },
-    }, {
-        "caption": "香港化",
-        "command": "fanhuaji_convert",
-        "args": {
-            "args": {
-                "converter": "Hongkong",
+            {
+                "caption": "中国化",
+                "command": "fanhuaji_convert",
+                "args": {
+                    "args": {
+                        "converter": "China"
+                    }
+                }
             },
-        },
-    }, {
-        "caption": "台灣化",
-        "command": "fanhuaji_convert",
-        "args": {
-            "args": {
-                "converter": "Taiwan",
+            {
+                "caption": "香港化",
+                "command": "fanhuaji_convert",
+                "args": {
+                    "args": {
+                        "converter": "Hongkong"
+                    }
+                }
             },
-        },
-    }, {
-        "caption": "-",
-    }, {
-        "caption": "拼音化",
-        "command": "fanhuaji_convert",
-        "args": {
-            "args": {
-                "converter": "Pinyin",
+            {
+                "caption": "台灣化",
+                "command": "fanhuaji_convert",
+                "args": {
+                    "args": {
+                        "converter": "Taiwan"
+                    }
+                }
             },
-        },
-    }, {
-        "caption": "注音化",
-        "command": "fanhuaji_convert",
-        "args": {
-            "args": {
-                "converter": "Bopomofo",
+            {
+                "caption": "-"
             },
-        },
-    }, {
-        "caption": "火星化",
-        "command": "fanhuaji_convert",
-        "args": {
-            "args": {
-                "converter": "Mars",
+            {
+                "caption": "拼音化",
+                "command": "fanhuaji_convert",
+                "args": {
+                    "args": {
+                        "converter": "Pinyin"
+                    }
+                }
             },
-        },
-    }, {
-        "caption": "-",
-    }, {
-        "caption": "维基简体化",
-        "command": "fanhuaji_convert",
-        "args": {
-            "args": {
-                "converter": "WikiSimplified",
+            {
+                "caption": "注音化",
+                "command": "fanhuaji_convert",
+                "args": {
+                    "args": {
+                        "converter": "Bopomofo"
+                    }
+                }
             },
-        },
-    }, {
-        "caption": "維基繁體化",
-        "command": "fanhuaji_convert",
-        "args": {
-            "args": {
-                "converter": "WikiTraditional",
+            {
+                "caption": "火星化",
+                "command": "fanhuaji_convert",
+                "args": {
+                    "args": {
+                        "converter": "Mars"
+                    }
+                }
             },
-        },
-    }],
-}]
+            {
+                "caption": "-"
+            },
+            {
+                "caption": "维基简体化",
+                "command": "fanhuaji_convert",
+                "args": {
+                    "args": {
+                        "converter": "WikiSimplified"
+                    }
+                }
+            },
+            {
+                "caption": "維基繁體化",
+                "command": "fanhuaji_convert",
+                "args": {
+                    "args": {
+                        "converter": "WikiTraditional"
+                    }
+                }
+            }
+        ]
+    }
+]

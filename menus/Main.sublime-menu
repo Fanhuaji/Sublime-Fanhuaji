@@ -1,37 +1,50 @@
-[{
-    "mnemonic": "n",
-    "id": "preferences",
-    "children": [{
-        "mnemonic": "P",
-        "id": "package-settings",
-        "children": [{
-            "caption": "Fanhuaji （繁化姬）",
-            "children": [{
-                "caption": "-",
-            }, {
-                "caption": "Settings",
-                "command": "edit_settings",
-                "args": {
-                    "base_file": "${packages}/Fanhuaji/Fanhuaji.sublime-settings",
-                    "default": "{\n\t$0\n}\n",
-                },
-            }, {
-                "caption": "-",
-            }, {
-                "caption": "README",
-                "command": "open_file",
-                "args": {
-                    "file": "${packages}/Fanhuaji/README.md",
-                },
-            }, {
-                "caption": "CHANGELOG",
-                "command": "open_file",
-                "args": {
-                    "file": "${packages}/Fanhuaji/CHANGELOG.md",
-                },
-            }, {
-                "caption": "-",
-            }]
-        }]
-    }]
-}]
+[
+    {
+        "mnemonic": "n",
+        "id": "preferences",
+        "children": [
+            {
+                "mnemonic": "P",
+                "id": "package-settings",
+                "children": [
+                    {
+                        "caption": "Fanhuaji （繁化姬）",
+                        "children": [
+                            {
+                                "caption": "-"
+                            },
+                            {
+                                "caption": "Settings",
+                                "command": "edit_settings",
+                                "args": {
+                                    "base_file": "${packages}/Fanhuaji/Fanhuaji.sublime-settings",
+                                    "default": "{\n\t$0\n}\n"
+                                }
+                            },
+                            {
+                                "caption": "-"
+                            },
+                            {
+                                "caption": "README",
+                                "command": "open_file",
+                                "args": {
+                                    "file": "${packages}/Fanhuaji/README.md"
+                                }
+                            },
+                            {
+                                "caption": "CHANGELOG",
+                                "command": "open_file",
+                                "args": {
+                                    "file": "${packages}/Fanhuaji/CHANGELOG.md"
+                                }
+                            },
+                            {
+                                "caption": "-"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

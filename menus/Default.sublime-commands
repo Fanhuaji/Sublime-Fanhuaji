@@ -1,73 +1,83 @@
-[{
-    "caption": "Fanhuaji （繁化姬）：简体化",
-    "command": "fanhuaji_convert",
-    "args": {
+[
+    {
+        "caption": "Fanhuaji （繁化姬）：简体化",
+        "command": "fanhuaji_convert",
         "args": {
-            "converter": "Simplified",
-        },
+            "args": {
+                "converter": "Simplified"
+            }
+        }
     },
-}, {
-    "caption": "Fanhuaji （繁化姬）：繁體化",
-    "command": "fanhuaji_convert",
-    "args": {
+    {
+        "caption": "Fanhuaji （繁化姬）：繁體化",
+        "command": "fanhuaji_convert",
         "args": {
-            "converter": "Traditional",
-        },
+            "args": {
+                "converter": "Traditional"
+            }
+        }
     },
-}, {
-    "caption": "Fanhuaji （繁化姬）：中国化",
-    "command": "fanhuaji_convert",
-    "args": {
+    {
+        "caption": "Fanhuaji （繁化姬）：中国化",
+        "command": "fanhuaji_convert",
         "args": {
-            "converter": "China",
-        },
+            "args": {
+                "converter": "China"
+            }
+        }
     },
-}, {
-    "caption": "Fanhuaji （繁化姬）：香港化",
-    "command": "fanhuaji_convert",
-    "args": {
+    {
+        "caption": "Fanhuaji （繁化姬）：香港化",
+        "command": "fanhuaji_convert",
         "args": {
-            "converter": "Hongkong",
-        },
+            "args": {
+                "converter": "Hongkong"
+            }
+        }
     },
-}, {
-    "caption": "Fanhuaji （繁化姬）：台灣化",
-    "command": "fanhuaji_convert",
-    "args": {
+    {
+        "caption": "Fanhuaji （繁化姬）：台灣化",
+        "command": "fanhuaji_convert",
         "args": {
-            "converter": "Taiwan",
-        },
+            "args": {
+                "converter": "Taiwan"
+            }
+        }
     },
-}, {
-    "caption": "Fanhuaji （繁化姬）：拼音化",
-    "command": "fanhuaji_convert",
-    "args": {
+    {
+        "caption": "Fanhuaji （繁化姬）：拼音化",
+        "command": "fanhuaji_convert",
         "args": {
-            "converter": "Pinyin",
-        },
+            "args": {
+                "converter": "Pinyin"
+            }
+        }
     },
-}, {
-    "caption": "Fanhuaji （繁化姬）：火星化",
-    "command": "fanhuaji_convert",
-    "args": {
+    {
+        "caption": "Fanhuaji （繁化姬）：火星化",
+        "command": "fanhuaji_convert",
         "args": {
-            "converter": "Mars",
-        },
+            "args": {
+                "converter": "Mars"
+            }
+        }
     },
-}, {
-    "caption": "Fanhuaji （繁化姬）：维基简体化",
-    "command": "fanhuaji_convert",
-    "args": {
+    {
+        "caption": "Fanhuaji （繁化姬）：维基简体化",
+        "command": "fanhuaji_convert",
         "args": {
-            "converter": "WikiSimplified",
-        },
+            "args": {
+                "converter": "WikiSimplified"
+            }
+        }
     },
-}, {
-    "caption": "Fanhuaji （繁化姬）：維基繁體化",
-    "command": "fanhuaji_convert",
-    "args": {
+    {
+        "caption": "Fanhuaji （繁化姬）：維基繁體化",
+        "command": "fanhuaji_convert",
         "args": {
-            "converter": "WikiTraditional",
-        },
-    },
-}]
+            "args": {
+                "converter": "WikiTraditional"
+            }
+        }
+    }
+]
