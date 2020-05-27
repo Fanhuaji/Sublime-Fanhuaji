@@ -1,5 +1,9 @@
 # Fanhuaji （繁化姬）
 
+## 1.2.3
+
+- fix: disable commands if there is no selected text
+
 ## 1.2.2
 
 - Run under Python 3.8 in ST 4.

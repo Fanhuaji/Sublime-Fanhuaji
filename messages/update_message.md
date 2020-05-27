@@ -1,6 +1,6 @@
 Fanhuaji has been updated. To see the changelog, visit
 Preferences » Package Settings » Fanhuaji » Changelog
 
-## 1.2.2
+## 1.2.3
 
-- Run under Python 3.8 in ST 4.
+- fix: disable commands if there is no selected text
