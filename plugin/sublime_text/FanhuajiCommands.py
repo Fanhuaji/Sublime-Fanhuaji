@@ -42,6 +42,12 @@ class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
 
 
 class FanhuajiConvertCommand(sublime_plugin.TextCommand):
+    def is_enabled(self, args: Dict[str, Any] = {}) -> bool:
+        return sum([len(r) for r in self.view.sel()]) > 0
+
+    def is_visible(self, args: Dict[str, Any] = {}) -> bool:
+        return self.is_enabled(args)
+
     def run(self, edit: sublime.Edit, args: Dict[str, Any] = {}) -> None:
         real_args = prepare_fanhuaji_convert_args(self.view)
         real_args.update(args)
