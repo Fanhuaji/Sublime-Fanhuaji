@@ -11,10 +11,8 @@
 
 ## 安裝方式
 
-- 使用 Package Control （推薦）：
+- 使用 Package Control ：
   在 `Package Control` 中搜尋 `Fanhuaji` 安裝即可。
-
-- 或是將本倉庫複製到 `Sublime Text` 的 `Data/Packages/` 資料夾中。
 
 ## 轉換模式
 
