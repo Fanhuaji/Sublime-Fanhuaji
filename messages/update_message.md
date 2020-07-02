@@ -1,6 +1,6 @@
 Fanhuaji has been updated. To see the changelog, visit
 Preferences » Package Settings » Fanhuaji » Changelog
 
-## 1.2.3
+## 1.2.4
 
-- fix: disable commands if there is no selected text
+- feat: add settings to disable SSL cert verification

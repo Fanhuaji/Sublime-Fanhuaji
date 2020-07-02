@@ -1,5 +1,9 @@
 # Fanhuaji （繁化姬）
 
+## 1.2.4
+
+- feat: add settings to disable SSL cert verification
+
 ## 1.2.3
 
 - fix: disable commands if there is no selected text
