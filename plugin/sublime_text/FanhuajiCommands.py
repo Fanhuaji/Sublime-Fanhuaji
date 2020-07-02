@@ -1,4 +1,5 @@
 import json
+import ssl
 import sublime
 import sublime_plugin
 from typing import Any, Dict
@@ -49,12 +50,17 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
         return self.is_enabled(args)
 
     def run(self, edit: sublime.Edit, args: Dict[str, Any] = {}) -> None:
+        if get_setting("ssl_cert_verification"):
+            ssl._create_default_https_context = ssl.create_default_context
+        else:
+            ssl._create_default_https_context = ssl._create_unverified_context
+
         real_args = prepare_fanhuaji_convert_args(self.view)
         real_args.update(args)
 
         try:
-            result = self._doApiConvert(real_args)
-        except url_error.HTTPError as e:
+            result = self._do_api_convert(real_args)
+        except (url_error.HTTPError, url_error.URLError) as e:
             sublime.error_message(msg("Failed to reach the server: {}".format(e)))
 
             return
@@ -74,7 +80,7 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
         for block in reversed(blocks):
             self.view.replace(edit, block["region"], block["text"])
 
-    def _doApiConvert(self, args: Dict[str, Any]) -> Dict[str, Any]:
+    def _do_api_convert(self, args: Dict[str, Any]) -> Dict[str, Any]:
         if get_setting("debug"):
             print_msg("Request with: {}".format(args))
 

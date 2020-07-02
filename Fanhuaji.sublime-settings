@@ -1,6 +1,8 @@
 {
     // 除錯模式
     "debug": false,
+    // 驗證 API 伺服器的 SSL 證書
+    "ssl_cert_verification": true,
     // API 伺服器位址
     "api_server": "https://api.zhconvert.org",
     // API 金鑰（若無請留空）
