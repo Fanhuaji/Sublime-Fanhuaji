@@ -3,7 +3,7 @@ from functools import lru_cache
 from typing import Any, Dict, List, Optional
 
 
-@lru_cache
+@lru_cache()
 def get_package_name() -> str:
     """
     @brief Getsthe package name.
@@ -15,12 +15,12 @@ def get_package_name() -> str:
     return __package__.partition(".")[0]
 
 
-@lru_cache
+@lru_cache()
 def get_package_path() -> str:
     return "Packages/" + get_package_name()
 
 
-@lru_cache
+@lru_cache()
 def get_settings_file() -> str:
     return get_package_name() + ".sublime-settings"
 
@@ -42,7 +42,7 @@ def get_text_delimiter() -> str:
     return r"\n\5\n"
 
 
-@lru_cache
+@lru_cache()
 def get_converters_info(index: int) -> Dict[str, Any]:
     return get_all_converters_info()[index]
 
