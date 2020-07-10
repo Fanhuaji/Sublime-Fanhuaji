@@ -1,6 +1,6 @@
 Fanhuaji has been updated. To see the changelog, visit
 Preferences » Package Settings » Fanhuaji » Changelog
 
-## 1.2.4
+## 1.2.5
 
-- feat: add settings to disable SSL cert verification
+- fix: `lru_cache` decorator errors (Python 3.3)

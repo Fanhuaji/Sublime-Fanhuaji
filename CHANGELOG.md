@@ -1,5 +1,9 @@
 # Fanhuaji （繁化姬）
 
+## 1.2.5
+
+- fix: `lru_cache` decorator errors (Python 3.3)
+
 ## 1.2.4
 
 - feat: add settings to disable SSL cert verification
