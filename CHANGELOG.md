@@ -1,5 +1,9 @@
 # Fanhuaji （繁化姬）
 
+## 1.3.1
+
+- fix: typing dependency for ST 4
+
 ## 1.3.0
 
 - fix: temporarily always use Python 3.3
