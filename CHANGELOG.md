@@ -1,8 +1,8 @@
 # Fanhuaji （繁化姬）
 
-## 1.2.5
+## 1.3.0
 
-- fix: `lru_cache` decorator errors (Python 3.3)
+- fix: temporarily always use Python 3.3
 
 ## 1.2.4
 

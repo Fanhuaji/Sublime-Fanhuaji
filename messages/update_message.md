@@ -1,6 +1,6 @@
 Fanhuaji has been updated. To see the changelog, visit
 Preferences » Package Settings » Fanhuaji » Changelog
 
-## 1.2.5
+## 1.3.0
 
-- fix: `lru_cache` decorator errors (Python 3.3)
+- fix: temporarily always use Python 3.3
