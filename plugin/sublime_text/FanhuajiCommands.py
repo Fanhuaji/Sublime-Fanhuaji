@@ -1,9 +1,8 @@
 import json
-import ssl
+import requests
 import sublime
 import sublime_plugin
 from typing import Any, Dict
-from urllib import error as url_error, request as url_request, parse as url_parse
 from ..functions import prepare_fanhuaji_convert_args
 from ..log import msg, print_msg
 from ..settings import get_all_converters_info, get_converters_info, get_setting, get_text_delimiter
@@ -50,18 +49,17 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
         return self.is_enabled(args)
 
     def run(self, edit: sublime.Edit, args: Dict[str, Any] = {}) -> None:
-        if get_setting("ssl_cert_verification"):
-            ssl._create_default_https_context = ssl.create_default_context
-        else:
-            ssl._create_default_https_context = ssl._create_unverified_context
-
         real_args = prepare_fanhuaji_convert_args(self.view)
         real_args.update(args)
 
         try:
             result = self._do_api_convert(real_args)
-        except (url_error.HTTPError, url_error.URLError) as e:
+        except requests.exceptions.ConnectionError as e:
             sublime.error_message(msg("Failed to reach the server: {}".format(e)))
+
+            return
+        except requests.exceptions.RequestException as e:
+            sublime.error_message(msg("Request exception: {}".format(e)))
 
             return
         except ValueError as e:
@@ -84,17 +82,9 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
         if get_setting("debug"):
             print_msg("Request with: {}".format(args))
 
-        encoding = "utf-8"
         url = get_setting("api_server") + "/convert"
+        verify_ssl = bool(get_setting("ssl_cert_verification"))
 
-        # prepare request
-        data = url_parse.urlencode(args).encode(encoding)
-        req = url_request.Request(url, data)
-        for key, val in HTTP_HEADERS.items():
-            req.add_header(key, val)
+        response = requests.post(url=url, data=args, headers=HTTP_HEADERS, verify=verify_ssl)
 
-        # execute request
-        with url_request.urlopen(req) as response:
-            html = response.read().decode(encoding)
-
-            return json.loads(html)
+        return json.loads(response.text)
