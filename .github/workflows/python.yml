@@ -42,4 +42,4 @@ jobs:
         run: |
           mypy -p plugin
           flake8 plugin
-          black --check .
+          black --check plugin
