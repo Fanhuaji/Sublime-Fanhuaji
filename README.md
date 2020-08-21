@@ -31,6 +31,34 @@
 
 ![screenshot](https://raw.githubusercontent.com/Fanhuaji/Sublime-Fanhuaji/master/docs/images/convert_taiwan.gif)
 
+## 快捷鍵 (keybindings)
+
+本插件因為功能比較繁雜，因此並不提供預設的快捷鍵。
+但以下提供幾個常見的功能與綁定方式，你可以加入自己的快捷鍵定義中。
+
+- 跳出 Quick Panel 選單，按下 Enter 選擇轉換模式後，轉換所選的文字：
+
+  ![screenshot](https://raw.githubusercontent.com/Fanhuaji/Sublime-Fanhuaji/master/docs/images/quick_panel_list.png)
+  
+  ```js
+  { "keys": ["alt+q"], "command": "fanhuaji_convert_panel" },
+  ```
+
+- 使用預先定義的參數，直接轉換所選的文字：
+
+  ```js
+  {
+      "keys": ["alt+q"],
+      "command": "fanhuaji_convert",
+      "args": {
+          "args": {
+              "converter": "Simplified", // 简体化
+              // 更多參數...
+          },
+      },
+  },
+  ```
+
 ## 插件設定
 
 ```javascript
