@@ -48,15 +48,77 @@ def get_converters_info(index: int) -> Dict[str, Any]:
 
 
 def get_all_converters_info() -> List[Dict[str, Any]]:
+    # fmt: off
     return [
-        {"name": "Simplified", "desc": "简体化"},
-        {"name": "Traditional", "desc": "繁體化"},
-        {"name": "China", "desc": "中国化"},
-        {"name": "Hongkong", "desc": "香港化"},
-        {"name": "Taiwan", "desc": "台灣化"},
-        {"name": "Pinyin", "desc": "拼音化"},
-        {"name": "Bopomofo", "desc": "注音化"},
-        {"name": "Mars", "desc": "火星化"},
-        {"name": "WikiSimplified", "desc": "维基简体化"},
-        {"name": "WikiTraditional", "desc": "維基繁體化"},
+        {
+            "name_eng": "Simplified",
+            "name_chi": "简体化",
+            "desc": "将文字转换为简体。",
+            "detail": "",
+            "st_kind": (sublime.KIND_ID_MARKUP, "简", ""),
+        },
+        {
+            "name_eng": "Traditional",
+            "name_chi": "繁體化",
+            "desc": "將文字轉換為繁體。",
+            "detail": "",
+            "st_kind": (sublime.KIND_ID_MARKUP, "繁", ""),
+        },
+        {
+            "name_eng": "China",
+            "name_chi": "中国化",
+            "desc": "将文字转换为简体，并使用中国地区的词语修正。",
+            "detail": "",
+            "st_kind": (sublime.KIND_ID_MARKUP, "中", ""),
+        },
+        {
+            "name_eng": "Hongkong",
+            "name_chi": "香港化",
+            "desc": "將文字轉換為繁體，並使用香港地區的詞語修正。",
+            "detail": "",
+            "st_kind": (sublime.KIND_ID_MARKUP, "港", ""),
+        },
+        {
+            "name_eng": "Taiwan",
+            "name_chi": "台灣化",
+            "desc": "將文字轉換為繁體，並使用台灣地區的詞語修正。",
+            "detail": "",
+            "st_kind": (sublime.KIND_ID_MARKUP, "台", ""),
+        },
+        {
+            "name_eng": "Pinyin",
+            "name_chi": "拼音化",
+            "desc": "將文字轉為拼音。",
+            "detail": "",
+            "st_kind": (sublime.KIND_ID_MARKUP, "拼", ""),
+        },
+        {
+            "name_eng": "Bopomofo",
+            "name_chi": "注音化",
+            "desc": "將文字轉為注音。",
+            "detail": "",
+            "st_kind": (sublime.KIND_ID_MARKUP, "注", ""),
+        },
+        {
+            "name_eng": "Mars",
+            "name_chi": "火星化",
+            "desc": "將文字轉換為繁體火星文。",
+            "detail": "",
+            "st_kind": (sublime.KIND_ID_MARKUP, "火", ""),
+        },
+        {
+            "name_eng": "WikiSimplified",
+            "name_chi": "维基简体化",
+            "desc": "只使用维基百科的词库将文字转换为简体。",
+            "detail": "一般而言，你应该用不到这个模式。",
+            "st_kind": (sublime.KIND_ID_AMBIGUOUS, "简", ""),
+        },
+        {
+            "name_eng": "WikiTraditional",
+            "name_chi": "維基繁體化",
+            "desc": "只使用維基百科的詞庫將文字轉換為繁體。",
+            "detail": "一般而言，你應該用不到這個模式。",
+            "st_kind": (sublime.KIND_ID_AMBIGUOUS, "繁", ""),
+        },
     ]
+    # fmt: on

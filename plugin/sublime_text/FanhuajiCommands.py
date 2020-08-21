@@ -2,7 +2,7 @@ import json
 import requests
 import sublime
 import sublime_plugin
-from typing import Any, Dict
+from typing import Any, Dict, List, Union
 from ..functions import prepare_fanhuaji_convert_args
 from ..log import msg, print_msg
 from ..settings import get_all_converters_info, get_converters_info, get_setting, get_text_delimiter
@@ -13,15 +13,23 @@ HTTP_HEADERS = {"user-agent": "Sublime Text Fanhuaji"}
 
 class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
     def run(self) -> None:
-        sublime.active_window().show_quick_panel(
-            # fmt: off
-            [
-                "{name} - {desc}".format_map(converter)
+        items = []  # type: List[Union[str, sublime.QuickPanelItem]]
+
+        # use QuickPanelItem if possible
+        if int(sublime.version()) >= 4083:
+            items = [
+                sublime.QuickPanelItem(
+                    trigger="{name_eng} - {name_chi}".format_map(converter),
+                    # details=converter["detail"],
+                    annotation=converter["desc"],
+                    kind=converter["st_kind"],
+                )
                 for converter in get_all_converters_info()
-            ],
-            # fmt: on
-            self.on_done
-        )
+            ]
+        else:
+            items = ["{name_eng} - {name_chi}".format_map(converter) for converter in get_all_converters_info()]
+
+        sublime.active_window().show_quick_panel(items, self.on_done)
 
     def on_done(self, index: int) -> None:
         if index == -1:
