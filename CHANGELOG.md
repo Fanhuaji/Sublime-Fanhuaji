@@ -2,7 +2,7 @@
 
 ## 1.3.2
 
-- feat: use sublime.QuickPanelItem() if possible
+- feat: use `sublime.QuickPanelItem()` if possible
 
   This will require ST >= 4083.
 
