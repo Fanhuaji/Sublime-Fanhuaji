@@ -1,5 +1,11 @@
 # Fanhuaji （繁化姬）
 
+## 1.3.2
+
+- feat: use sublime.QuickPanelItem() if possible
+
+  This will require ST >= 4083.
+
 ## 1.3.1
 
 - fix: typing dependency for ST 4
