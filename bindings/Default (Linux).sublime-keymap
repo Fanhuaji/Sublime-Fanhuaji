@@ -1,0 +1,6 @@
+[
+    {
+        "keys": ["alt+f", "alt+h", "alt+j"],
+        "command": "fanhuaji_convert_panel",
+    },
+]
