@@ -3,23 +3,30 @@ import requests
 import sublime
 import sublime_plugin
 from typing import Any, Dict, List, Union
+from .. import st_features
 from ..functions import prepare_fanhuaji_convert_args
 from ..log import msg, print_msg
 from ..settings import get_all_converters_info, get_converters_info, get_setting, get_text_delimiter
 
 # HTTP headers used in issuing an API call
-HTTP_HEADERS = {"user-agent": "Sublime Text Fanhuaji"}
+HTTP_HEADERS = {
+    # fmt: off
+    "user-agent": "Sublime Text {} Fanhuaji".format(st_features.ST_VERSION),
+    # fmt: on
+}
 
 
 class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
     def run(self) -> None:
+        trigger_format = "{name_eng} - {name_chi}"
+
         items = []  # type: List[Union[str, sublime.QuickPanelItem]]
 
         # use QuickPanelItem if possible
         if int(sublime.version()) >= 4083:
             items = [
                 sublime.QuickPanelItem(
-                    trigger="{name_eng} - {name_chi}".format_map(converter),
+                    trigger=trigger_format.format_map(converter),
                     # details=converter["detail"],
                     annotation=converter["desc"],
                     kind=converter["st_kind"],
@@ -27,7 +34,12 @@ class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
                 for converter in get_all_converters_info()
             ]
         else:
-            items = ["{name_eng} - {name_chi}".format_map(converter) for converter in get_all_converters_info()]
+            # fmt: off
+            items = [
+                trigger_format.format_map(converter)
+                for converter in get_all_converters_info()
+            ]
+            # fmt: on
 
         sublime.active_window().show_quick_panel(items, self.on_done)
 
@@ -42,7 +54,7 @@ class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
             # fmt: off
             {
                 "args": {
-                    "converter": converter["name"],
+                    "converter": converter["name_api"],
                 },
             },
             # fmt: on
