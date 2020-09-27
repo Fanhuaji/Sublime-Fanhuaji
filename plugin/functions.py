@@ -32,11 +32,7 @@ def prepare_fanhuaji_convert_args(view: sublime.View) -> Dict[str, Any]:
     args["prettify"] = False
 
     # 參數： API convert 端點
-    args["text"] = get_text_delimiter().join(
-        [
-            view.substr(region) for region in view.sel()  # type: ignore
-        ]
-    )
+    args["text"] = get_text_delimiter().join([view.substr(region) for region in view.sel()])  # type: ignore
     args["diffEnable"] = False
 
     return args
