@@ -1,5 +1,19 @@
 # Fanhuaji （繁化姬）
 
+## 1.3.3
+
+- fix: `fanhuaji_convert_panel` is not working
+- chore: add a default keybinding for the `fanhuaji_convert_panel` command
+
+  ```js
+  [
+    {
+      keys: ["alt+f", "alt+h", "alt+j"],
+      command: "fanhuaji_convert_panel",
+    },
+  ];
+  ```
+
 ## 1.3.2
 
 - feat: use `sublime.QuickPanelItem()` if possible

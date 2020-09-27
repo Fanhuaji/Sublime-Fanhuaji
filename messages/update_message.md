@@ -1,8 +1,16 @@
 Fanhuaji has been updated. To see the changelog, visit
 Preferences » Package Settings » Fanhuaji » Changelog
 
-## 1.3.2
+## 1.3.3
 
-- feat: use `sublime.QuickPanelItem()` if possible
+- fix: `fanhuaji_convert_panel` is not working
+- chore: add a default keybinding for the `fanhuaji_convert_panel` command
 
-  This will require ST >= 4083.
+  ```js
+  [
+    {
+      keys: ["alt+f", "alt+h", "alt+j"],
+      command: "fanhuaji_convert_panel",
+    },
+  ];
+  ```
