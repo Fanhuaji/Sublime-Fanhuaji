@@ -33,7 +33,7 @@
 
 ## 快捷鍵 (keybindings)
 
-- 跳出 Quick Panel 選單，按下 Enter 選擇轉換模式後，轉換所選的文字：
+- 彈出 Quick Panel 選單，按下 Enter 選擇轉換模式後，轉換所選的文字：
 
   ![screenshot](https://raw.githubusercontent.com/Fanhuaji/Sublime-Fanhuaji/master/docs/images/quick_panel_list.png)
 
@@ -43,9 +43,6 @@
       "command": "fanhuaji_convert_panel",
   },
   ```
-
-本插件因為功能比較繁雜，因此並不提供其他快捷鍵。
-但以下提供幾個常見的功能與綁定方式，你可以加入自己的快捷鍵定義中。
 
 - 使用預先定義的參數，直接轉換所選的文字：
 
@@ -64,7 +61,7 @@
 
 ## 插件設定
 
-```javascript
+```js
 {
     // 除錯模式
     "debug": false,
