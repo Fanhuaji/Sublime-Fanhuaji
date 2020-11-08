@@ -16,4 +16,5 @@ scripts/ export-ignore
 stubs/ export-ignore
 tests/ export-ignore
 tox.ini export-ignore
+typings/ export-ignore
 unittesting.json export-ignore
