@@ -21,7 +21,7 @@ class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
         items = []  # type: List[Union[str, sublime.QuickPanelItem]]
 
         # use QuickPanelItem if possible
-        if int(sublime.version()) >= 4083:
+        if st_features.CAN_QUICKPANELITEM:
             items = [
                 sublime.QuickPanelItem(
                     trigger=trigger_format.format_map(converter),
