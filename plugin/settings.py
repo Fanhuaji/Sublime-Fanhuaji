@@ -1,6 +1,6 @@
-import sublime
 from functools import lru_cache
 from typing import Any, Dict, List, Optional
+import sublime
 
 
 @lru_cache()
@@ -49,6 +49,7 @@ def get_converters_info(index: int) -> Dict[str, Any]:
     return get_all_converters_info()[index]
 
 
+@lru_cache()
 def get_all_converters_info() -> List[Dict[str, Any]]:
     return [
         {

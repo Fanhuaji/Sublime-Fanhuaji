@@ -1,7 +1,7 @@
+from .settings import get_setting, get_text_delimiter
+from typing import Any, Dict
 import json
 import sublime
-from typing import Any, Dict
-from .settings import get_setting, get_text_delimiter
 
 
 def prepare_fanhuaji_convert_args(view: sublime.View) -> Dict[str, Any]:

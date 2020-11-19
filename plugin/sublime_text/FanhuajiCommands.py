@@ -1,18 +1,16 @@
-import json
-import requests
-import sublime
-import sublime_plugin
-from typing import Any, Dict, List, Union
 from .. import st_features
 from ..functions import prepare_fanhuaji_convert_args
 from ..log import msg, print_msg
 from ..settings import get_all_converters_info, get_converters_info, get_setting, get_text_delimiter
+from typing import Dict, List, Union
+import json
+import requests
+import sublime
+import sublime_plugin
 
 # HTTP headers used in issuing an API call
 HTTP_HEADERS = {
-    # fmt: off
     "user-agent": "Sublime Text {} Fanhuaji".format(st_features.ST_VERSION),
-    # fmt: on
 }
 
 
@@ -51,24 +49,22 @@ class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
 
         sublime.active_window().run_command(
             "fanhuaji_convert",
-            # fmt: off
             {
                 "args": {
                     "converter": converter["name_api"],
                 },
             },
-            # fmt: on
         )
 
 
 class FanhuajiConvertCommand(sublime_plugin.TextCommand):
-    def is_enabled(self, args: Dict[str, Any] = {}) -> bool:
+    def is_enabled(self, args: Dict = {}) -> bool:
         return sum([len(r) for r in self.view.sel()]) > 0
 
-    def is_visible(self, args: Dict[str, Any] = {}) -> bool:
+    def is_visible(self, args: Dict = {}) -> bool:
         return self.is_enabled(args)
 
-    def run(self, edit: sublime.Edit, args: Dict[str, Any] = {}) -> None:
+    def run(self, edit: sublime.Edit, args: Dict = {}) -> None:
         real_args = prepare_fanhuaji_convert_args(self.view)
         real_args.update(args)
 
@@ -98,7 +94,7 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
         for block in reversed(blocks):
             self.view.replace(edit, block["region"], block["text"])
 
-    def _do_api_convert(self, args: Dict[str, Any]) -> Dict[str, Any]:
+    def _do_api_convert(self, args: Dict) -> Dict:
         if get_setting("debug"):
             print_msg("Request with: {}".format(args))
 
