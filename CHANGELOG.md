@@ -1,5 +1,11 @@
 # Fanhuaji （繁化姬）
 
+## 2.0.0
+
+- refactor: drop ST 3 support (min requirement is ST 4105)
+
+  People can still use the legacy `1.3.3` release, which supports ST 3.
+
 ## 1.3.3
 
 - fix: `fanhuaji_convert_panel` is not working
@@ -10,8 +16,8 @@
     {
       keys: ["alt+f", "alt+h", "alt+j"],
       command: "fanhuaji_convert_panel",
-    },
-  ];
+    }
+  ]
   ```
 
 ## 1.3.2

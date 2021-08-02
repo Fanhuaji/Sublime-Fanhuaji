@@ -1,16 +1,8 @@
 Fanhuaji has been updated. To see the changelog, visit
 Preferences » Package Settings » Fanhuaji » Changelog
 
-## 1.3.3
+## 2.0.0
 
-- fix: `fanhuaji_convert_panel` is not working
-- chore: add a default keybinding for the `fanhuaji_convert_panel` command
+- refactor: drop ST 3 support (min requirement is ST 4105)
 
-  ```js
-  [
-    {
-      keys: ["alt+f", "alt+h", "alt+j"],
-      command: "fanhuaji_convert_panel",
-    },
-  ];
-  ```
+  People can still use the legacy `1.3.3` release, which supports ST 3.
