@@ -1,9 +1,10 @@
 # Sublime-Fanhuaji （繁化姬）
 
-[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/Fanhuaji/Sublime-Fanhuaji/Main/master?style=flat-square)](https://github.com/Fanhuaji/Sublime-Fanhuaji/actions)
+[![Required ST Build](https://img.shields.io/badge/ST-4105+-orange.svg?style=flat-square&logo=sublime-text)](https://www.sublimetext.com)
+[![GitHub Actions](https://img.shields.io/github/workflow/status/Fanhuaji/Sublime-Fanhuaji/Python?style=flat-square)](https://github.com/Fanhuaji/Sublime-Fanhuaji/actions)
 [![Package Control](https://img.shields.io/packagecontrol/dt/Fanhuaji?style=flat-square)](https://packagecontrol.io/packages/Fanhuaji)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/Fanhuaji/Sublime-Fanhuaji?style=flat-square&logo=github)](https://github.com/Fanhuaji/Sublime-Fanhuaji/tags)
-[![Project license](https://img.shields.io/github/license/Fanhuaji/Sublime-Fanhuaji?style=flat-square&logo=github)](https://github.com/Fanhuaji/Sublime-Fanhuaji/blob/master/LICENSE)
+[![Project license](https://img.shields.io/github/license/Fanhuaji/Sublime-Fanhuaji?style=flat-square&logo=github)](https://github.com/Fanhuaji/Sublime-Fanhuaji/blob/st4/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/Fanhuaji/Sublime-Fanhuaji?style=flat-square&logo=github)](https://github.com/Fanhuaji/Sublime-Fanhuaji/stargazers)
 [![Donate to this project using Paypal](https://img.shields.io/badge/paypal-donate-blue.svg?style=flat-square&logo=paypal)](https://www.paypal.me/jfcherng/5usd)
 
