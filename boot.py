@@ -1,7 +1,6 @@
-from .plugin import set_up, tear_down
-
-# main plugin classes
-from .plugin.sublime_text.FanhuajiCommands import *
+from .plugin import set_up
+from .plugin import tear_down
+from .plugin.commands import *  # noqa: F401, F403
 
 
 def plugin_loaded() -> None:

@@ -1,57 +1,27 @@
+from .constant import PLUGIN_NAME
+from .types import TD_ConverterInfo
 from functools import lru_cache
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional, Tuple
 import sublime
 
 
-@lru_cache()
-def get_package_name() -> str:
-    """
-    @brief Getsthe package name.
-
-    @return The package name.
-    """
-
-    # anyway, the top module should always be the plugin name
-    return __package__.partition(".")[0]
-
-
-@lru_cache()
-def get_package_path() -> str:
-    return "Packages/" + get_package_name()
-
-
-@lru_cache()
-def get_settings_file() -> str:
-    return get_package_name() + ".sublime-settings"
-
-
+@lru_cache
 def get_settings_object() -> sublime.Settings:
-    return sublime.load_settings(get_settings_file())
+    return sublime.load_settings(f"{PLUGIN_NAME}.sublime-settings")
 
 
 def get_setting(key: str, default: Optional[Any] = None) -> Any:
     return get_settings_object().get(key, default)
 
 
-def get_text_delimiter() -> str:
-    """
-    The delimiter used to concat/split multiple selected text,
-    so we could convert multiple text with only a single API call.
-
-    This delimiter should be a extremely rarely used string.
-    """
-
-    return r"\n\5\9\8\n"
+@lru_cache
+def get_converter_info(index: int) -> TD_ConverterInfo:
+    return get_converters_info()[index]
 
 
-@lru_cache()
-def get_converters_info(index: int) -> Dict[str, Any]:
-    return get_all_converters_info()[index]
-
-
-@lru_cache()
-def get_all_converters_info() -> List[Dict[str, Any]]:
-    return [
+@lru_cache
+def get_converters_info() -> Tuple[TD_ConverterInfo, ...]:
+    return (
         {
             "name_api": "Simplified",
             "name_eng": "Simplified",
@@ -132,4 +102,4 @@ def get_all_converters_info() -> List[Dict[str, Any]]:
             "detail": "一般而言，你應該用不到這個模式。",
             "st_kind": (sublime.KIND_ID_AMBIGUOUS, "繁", ""),
         },
-    ]
+    )

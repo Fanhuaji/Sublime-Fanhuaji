@@ -1,12 +1,15 @@
 [tool.black]
 line-length = 120
-target-version = ['py33']
+target-version = ['py38']
 
 # regex
 exclude = '''
 /(
   \.git |
+  \.mypy_cache |
+  \.?venv |
   plugin/libs |
+  tests/files |
   stubs |
   typings
 )/

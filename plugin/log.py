@@ -1,3 +1,6 @@
+from .constant import PLUGIN_NAME
+
+
 def msg(message: str) -> str:
     """
     @brief Generate plugin message.
@@ -7,9 +10,7 @@ def msg(message: str) -> str:
     @return The plugin message.
     """
 
-    from .settings import get_package_name
-
-    return "[{plugin}] {message}".format(plugin=get_package_name(), message=message)
+    return f"[{PLUGIN_NAME}] {message}"
 
 
 def print_msg(message: str, show_message: bool = True) -> None:
