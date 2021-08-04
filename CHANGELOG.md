@@ -1,5 +1,9 @@
 # Fanhuaji （繁化姬）
 
+## 2.0.1
+
+- chore: update dependencies
+
 ## 2.0.0
 
 - refactor: drop ST 3 support (min requirement is ST 4105)
