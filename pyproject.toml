@@ -14,3 +14,20 @@ exclude = '''
   typings
 )/
 '''
+
+[tool.pyright]
+include = ["./"]
+exclude = [
+  "**/__pycache__/",
+  "**/node_modules/",
+  # git-related
+  "**/.git/",
+  "**/br-*/",
+  "**/branch-*/",
+]
+ignore = [
+  "**/.venv",
+  "plugin/libs/",
+]
+stubPath = "typings"
+pythonVersion = "3.8"
