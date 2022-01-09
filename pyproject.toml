@@ -1,3 +1,16 @@
+[tool.mypy]
+# ignore_missing_imports = False
+check_untyped_defs = true
+strict_optional = true
+mypy_path = 'typings:stubs'
+
+[[tool.mypy.overrides]]
+module = [
+    "plugin.libs.*",
+]
+ignore_errors = true
+ignore_missing_imports = true
+
 [tool.black]
 line-length = 120
 target-version = ['py38']
@@ -5,29 +18,31 @@ target-version = ['py38']
 # regex
 exclude = '''
 /(
-  \.git |
-  \.mypy_cache |
-  \.?venv |
-  plugin/libs |
-  tests/files |
-  stubs |
-  typings
+  \.git
+  | \.?venv
+  | \.mypy_cache
+  | br-*
+  | branch-*
+  | libs
+  | stubs
+  | tests/files
+  | typings
 )/
 '''
 
 [tool.pyright]
-include = ["./"]
+include = ['./']
 exclude = [
-  "**/__pycache__/",
-  "**/node_modules/",
+  '**/__pycache__/',
+  '**/node_modules/',
   # git-related
-  "**/.git/",
-  "**/br-*/",
-  "**/branch-*/",
+  '**/.git/',
+  '**/br-*/',
+  '**/branch-*/',
 ]
 ignore = [
-  "**/.venv",
-  "plugin/libs/",
+  '**/.venv',
+  '**/libs',
 ]
-stubPath = "typings"
-pythonVersion = "3.8"
+stubPath = 'typings'
+pythonVersion = '3.8'
