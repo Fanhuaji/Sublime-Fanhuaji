@@ -40,20 +40,19 @@ is at <https://requests.readthedocs.io>.
 :license: Apache 2.0, see LICENSE for more details.
 """
 
+from .. import urllib3
 import warnings
-from .packages import urllib3
 from .exceptions import RequestsDependencyWarning
 
 try:
-    from charset_normalizer import __version__ as charset_normalizer_version
+    from ..charset_normalizer import __version__ as charset_normalizer_version
 except ImportError:
     charset_normalizer_version = None
 
 try:
-    from .packages.chardet import __version__ as chardet_version
+    from ..chardet import __version__ as chardet_version
 except ImportError:
     chardet_version = None
-
 
 def check_compatibility(urllib3_version, chardet_version, charset_normalizer_version):
     urllib3_version = urllib3_version.split('.')
@@ -124,7 +123,7 @@ except ImportError:
     pass
 
 # urllib3's DependencyWarnings should be silenced.
-from .packages.urllib3.exceptions import DependencyWarning
+from ..urllib3.exceptions import DependencyWarning
 warnings.simplefilter('ignore', DependencyWarning)
 
 from .__version__ import __title__, __description__, __url__, __version__
@@ -140,7 +139,7 @@ from .status_codes import codes
 from .exceptions import (
     RequestException, Timeout, URLRequired,
     TooManyRedirects, HTTPError, ConnectionError,
-    FileModeWarning, ConnectTimeout, ReadTimeout
+    FileModeWarning, ConnectTimeout, ReadTimeout, JSONDecodeError
 )
 
 # Set default logging handler to avoid "No handler found" warnings.
