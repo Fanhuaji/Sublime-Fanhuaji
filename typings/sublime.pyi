@@ -1,5 +1,5 @@
 # This file is maintained on https://github.com/jfcherng-sublime/ST-API-stubs
-# ST version: 4114
+# ST version: 4123
 
 from __future__ import annotations
 
@@ -227,7 +227,7 @@ def message_dialog(msg: str) -> None:
     ...
 
 
-def ok_cancel_dialog(msg: str, ok_title: str = "", title: str = "") -> int:
+def ok_cancel_dialog(msg: str, ok_title: str = "", title: str = "") -> bool:
     """
     Show a popup dialog with an "ok" and "cancel" button.
 
@@ -236,7 +236,7 @@ def ok_cancel_dialog(msg: str, ok_title: str = "", title: str = "") -> int:
     - `title`: Optional title for the dialog. Note Linux and macOS do not have
                  a title in their dialog.
 
-    Returns `True` if the user presses the `ok` button.
+    Returns `True` if the user presses the `ok` button, `False` otherwise.
     """
     ...
 
@@ -718,7 +718,11 @@ class Window:
         ...
 
     def file_history(self) -> List[str]:
-        """Returns a list of paths of recently opened files."""
+        """
+        Returns a list of paths of recently opened files.
+
+        @version ST(>=4114)
+        """
         ...
 
     def num_groups(self) -> int:
@@ -772,6 +776,33 @@ class Window:
 
     def set_view_index(self, view: View, group: int, idx: int) -> None:
         """Moves the `view` to the given `group` and index."""
+        ...
+
+    def move_sheets_to_group(
+        self,
+        sheets: List[Sheet],
+        group: int,
+        insertion_idx: int = -1,
+        select: bool = True,
+    ) -> bool:
+        """
+        Moves all unique provided sheets to specified group at insertion index provided.
+        If an index is not provided defaults to last index of the destination group.
+
+        @version ST(>=4123)
+
+        :param sheets:
+                A List of Sheet objects
+
+        :param group:
+                An int specifying the destination group
+
+        :param insertion_idx:
+                An int specifying the insertion index
+
+        :param select:
+                A bool specifying whether the moved sheets should be selected
+        """
         ...
 
     def sheets(self) -> List[Sheet]:
@@ -1223,7 +1254,7 @@ class TextChange:
         ...
 
 
-class Selection(Reversible):
+class Selection(Reversible[Region]):
     """
     Maintains a set of Regions, ensuring that none overlap.
     The regions are kept in sorted order.
@@ -1397,6 +1428,22 @@ class HtmlSheet(Sheet):
         ...
 
 
+class ContextStackFrame:
+    """
+    @version ST(>=4127)
+    """
+
+    context_name: str
+    source_file: str
+    source_location: Tuple[int, int]
+
+    def __init__(self, context_name: str, source_file: str, source_location: Tuple[int, int]) -> None:
+        ...
+
+    def __repr__(self) -> str:
+        ...
+
+
 class View:
     """
     Represents a view into a text buffer. Note that multiple views may refer to
@@ -1503,7 +1550,7 @@ class View:
         """
         ...
 
-    def close(self, on_close: Optional[Callable[[bool], None]] = lambda did_close: None) -> None:
+    def close(self, on_close: Optional[Callable[[bool], None]] = lambda did_close: None) -> bool:
         """Closes this view."""
         ...
 
@@ -1606,11 +1653,11 @@ class View:
         """
         ...
 
-    def erase(self, edit: Edit, region: Region) -> None:
+    def erase(self, edit: Edit, r: Region) -> None:
         """Erases the contents of the region from the buffer."""
         ...
 
-    def replace(self, edit: Edit, region: Region, text: str) -> None:
+    def replace(self, edit: Edit, r: Region, text: str) -> None:
         """Replaces the contents of the region with the given string."""
         ...
 
@@ -1635,10 +1682,10 @@ class View:
         """
         ...
 
-    def transform_region_from(self, region: Region, change_id: Tuple[int, int, int]) -> Region:
+    def transform_region_from(self, r: Region, when: Tuple[int, int, int]) -> Region:
         """
         Transforms a region from a previous point in time to an equivalent
-        region in the current state of the `View`. The `change_id` must have been
+        region in the current state of the `View`. The `when` must have been
         obtained from `change_id()` at the point in time the region is from.
 
         @version ST(>=4069)
@@ -1721,7 +1768,7 @@ class View:
         """Returns the syntax scope name assigned to the character at the given point"""
         ...
 
-    def context_backtrace(self, pt: Point) -> List[str]:
+    def context_backtrace(self, pt: Point) -> List[ContextStackFrame]:
         """
         Returns a list of the contexts on the stack at the specified point.
 
@@ -1784,9 +1831,14 @@ class View:
         ...
 
     def indented_region(self, pt: Point) -> Region:
+        """
+        Returns the region that represents consecutive lines which has the same indentation level
+        if they are indented. If the point is not indented, returns `sublime.Region(pt, pt)`.
+        """
         ...
 
     def indentation_level(self, pt: Point) -> int:
+        """Returns the indentation level of the line which contains the point."""
         ...
 
     def has_non_empty_selection_region(self) -> bool:
@@ -1929,15 +1981,21 @@ class View:
         Scrolls this view to reveal x, which may be a Region or point.
 
         ---
-        - `location`: A point, Region or Selection to scroll this view to.
+        - `x`: A point, Region or Selection to scroll this view to.
         - `show_surrounds`: A bool, scroll this view far enough that surrounding conent is visible also
         - `keep_to_left` (4075): A bool, if this view should be kept to the left, if horizontal scrolling is possible
         - `animate` (4075): A bool, if the scroll should be animated
         """
         ...
 
-    def show_at_center(self, x: Union[Region, Point]) -> None:
-        """Scrolls this view to center on x, which may be a Region or point."""
+    def show_at_center(self, x: Union[Region, Point], animate: bool = True) -> None:
+        """
+        Scrolls this view to center on x, which may be a Region or point.
+
+        ---
+        - `x`: A point, Region to scroll this view to.
+        - `animate` (4123): A bool, if the scroll should be animated
+        """
         ...
 
     def viewport_position(self) -> Vector:
@@ -2308,7 +2366,13 @@ class View:
         ...
 
     def clear_undo_stack(self) -> None:
-        """Clear the undo stack. Usually used in a long-time running view."""
+        """
+        Clear the undo stack.
+
+        Cannot be used in a `sublime_plugin.TextCommand`, which will modify the undo stack.
+
+        @version ST(>=4114)
+        """
         ...
 
 
