@@ -1,5 +1,10 @@
 # Fanhuaji （繁化姬）
 
+## 2.0.2
+
+- refactor: entity-ize server responses
+- chore: update dependencies
+
 ## 2.0.1
 
 - chore: update dependencies
