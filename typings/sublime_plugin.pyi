@@ -1,10 +1,10 @@
 # This file is maintained on https://github.com/jfcherng-sublime/ST-API-stubs
-# ST version: 4127
+# ST version: 4131
 
 from __future__ import annotations
 
 # __future__ must be the first import
-from _sublime_typing import AnyCallable, Completion, CompletionNormalized, EventDict, Point
+from _sublime_typing import AnyCallable, T_AnyCallable, Completion, CompletionNormalized, EventDict, Point
 from importlib.machinery import ModuleSpec
 from types import ModuleType
 from typing import (
@@ -16,13 +16,12 @@ from typing import (
     Iterable,
     Iterator,
     List,
-    Optional,
+    Type,
     overload,
     Sequence,
     Set,
     Tuple,
     TypeVar,
-    Union,
 )
 import importlib.abc
 import io
@@ -34,10 +33,7 @@ import threading
 # types #
 # ----- #
 
-InputType = TypeVar(
-    "InputType",
-    bound=Union[str, int, float, Dict[Any, Any], List[Any], Tuple[Any, ...], None],
-)
+T_InputType = TypeVar("T_InputType", bound=None | str | int | float | Dict[Any, Any] | List[Any] | Tuple[Any, ...])
 
 # -------- #
 # ST codes #
@@ -45,18 +41,18 @@ InputType = TypeVar(
 
 api_ready: bool = False
 
-deferred_plugin_loadeds: List[str] = []
+deferred_plugin_loadeds: List[Callable[[], None]] = []
 
-application_command_classes: List[str] = []
-window_command_classes: List[str] = []
-text_command_classes: List[str] = []
+application_command_classes: List[Type] = []
+window_command_classes: List[Type] = []
+text_command_classes: List[Type] = []
 
-view_event_listener_classes: List[str] = []
-view_event_listeners: Dict[int, List[type]] = {}
+view_event_listener_classes: List[Type] = []
+view_event_listeners: Dict[int, List[ViewEventListener]] = {}
 
-all_command_classes: List[List[str]] = [application_command_classes, window_command_classes, text_command_classes]
+all_command_classes: List[List[Type]] = [application_command_classes, window_command_classes, text_command_classes]
 
-all_callbacks: Dict[str, List[Union[type, str]]] = {
+all_callbacks: Dict[str, List[object]] = {
     "on_init": [],
     "on_new": [],
     "on_clone": [],
@@ -110,9 +106,9 @@ all_callbacks: Dict[str, List[Union[type, str]]] = {
     "on_exit": [],
 }
 
-pending_on_activated_async_lock = threading.Lock()
+pending_on_activated_async_lock: threading.Lock = threading.Lock()
 
-pending_on_activated_async_callbacks: Dict[str, List[str]] = {"EventListener": [], "ViewEventListener": []}
+pending_on_activated_async_callbacks: Dict[str, List[Type]] = {"EventListener": [], "ViewEventListener": []}
 
 view_event_listener_excluded_callbacks: Set[str] = {
     "on_clone",
@@ -142,7 +138,7 @@ view_event_listener_excluded_callbacks: Set[str] = {
     "on_window_command",
 }
 
-text_change_listener_classes: List[str] = []
+text_change_listener_classes: List[Type] = []
 text_change_listener_callbacks: Set[str] = {
     "on_text_changed",
     "on_text_changed_async",
@@ -151,12 +147,12 @@ text_change_listener_callbacks: Set[str] = {
     "on_reload",
     "on_reload_async",
 }
-text_change_listeners: Dict[int, List[type]] = {}
+text_change_listeners: Dict[int, List[TextChangeListener]] = {}
 
 profile: Dict[str, Dict[str, Any]] = {}
 
 
-def add_profiling(event_handler: AnyCallable) -> AnyCallable:
+def add_profiling(event_handler: T_AnyCallable) -> T_AnyCallable:
     """
     Decorator to measure blocking event handler methods. Also prevents
     exceptions from interrupting other events handlers.
@@ -170,7 +166,7 @@ def add_profiling(event_handler: AnyCallable) -> AnyCallable:
     ...
 
 
-def trap_exceptions(event_handler: AnyCallable) -> AnyCallable:
+def trap_exceptions(event_handler: T_AnyCallable) -> T_AnyCallable:
     """
     Decorator to prevent exceptions from interrupting other events handlers.
 
@@ -183,7 +179,7 @@ def trap_exceptions(event_handler: AnyCallable) -> AnyCallable:
     ...
 
 
-def decorate_handler(cls: Any, method_name: str) -> None:
+def decorate_handler(cls: Type, method_name: str) -> None:
     """
     Decorates an event handler method with exception trapping, and in the case
     of blocking calls, profiling.
@@ -217,7 +213,7 @@ def synthesize_on_activated_async() -> None:
     ...
 
 
-def _instantiation_error(cls: Any, e: Exception) -> None:
+def _instantiation_error(cls: Type, e: Exception) -> None:
     ...
 
 
@@ -225,15 +221,15 @@ def notify_application_commands() -> None:
     ...
 
 
-def create_application_commands() -> List[Tuple[object, str]]:
+def create_application_commands() -> List[Tuple[ApplicationCommand, str]]:
     ...
 
 
-def create_window_commands(window_id: int) -> List[Tuple[object, str]]:
+def create_window_commands(window_id: int) -> List[Tuple[WindowCommand, str]]:
     ...
 
 
-def create_text_commands(view_id: int) -> List[Tuple[object, str]]:
+def create_text_commands(view_id: int) -> List[Tuple[TextCommand, str]]:
     ...
 
 
@@ -241,11 +237,11 @@ def on_api_ready() -> None:
     ...
 
 
-def is_view_event_listener_applicable(cls: Any, view: sublime.View) -> bool:
+def is_view_event_listener_applicable(cls: Type[ViewEventListener], view: sublime.View) -> bool:
     ...
 
 
-def create_view_event_listeners(classes: Iterable[object], view: sublime.View) -> None:
+def create_view_event_listeners(classes: Iterable[Type[ViewEventListener]], view: sublime.View) -> None:
     ...
 
 
@@ -268,7 +264,8 @@ def detach_view(view: sublime.View) -> None:
     ...
 
 
-def find_view_event_listener(view: sublime.View, cls: str) -> Optional[object]:
+def find_view_event_listener(view: sublime.View, cls: Type) -> None | ViewEventListener:
+    """Find the view event listener object, whose class is `cls`, for the `view`."""
     ...
 
 
@@ -288,15 +285,11 @@ def plugin_module_for_obj(obj: object) -> str:
     ...
 
 
-def el_callbacks(name: str, listener_only: bool = False) -> Generator[Union[type, str], None, None]:
+def el_callbacks(name: str, listener_only: bool = False) -> Generator[Type | str, None, None]:
     ...
 
 
-def vel_callbacks(
-    v: sublime.View,
-    name: str,
-    listener_only: bool = False,
-) -> Generator[Union[type, str], None, None]:
+def vel_callbacks(v: sublime.View, name: str, listener_only: bool = False) -> Generator[Type | str, None, None]:
     ...
 
 
@@ -480,11 +473,11 @@ def on_query_context(
     operator: str,
     operand: Any,
     match_all: bool,
-) -> Optional[bool]:
+) -> None | bool:
     ...
 
 
-def normalise_completion(c: Union[sublime.CompletionItem, str, Sequence[str]]) -> CompletionNormalized:
+def normalise_completion(c: sublime.CompletionItem | str | Sequence[str]) -> CompletionNormalized:
     ...
 
 
@@ -500,7 +493,7 @@ class MultiCompletionList:
 
     def completions_ready(
         self,
-        completions: Iterable[Union[sublime.CompletionItem, str, Sequence[str]]],
+        completions: Iterable[sublime.CompletionItem | str | Sequence[str]],
         flags: int,
     ) -> None:
         ...
@@ -511,7 +504,7 @@ def on_query_completions(
     req_id: int,
     prefix: str,
     locations: Sequence[Point],
-) -> Union[None, List[Completion], Tuple[List[Completion], int]]:
+) -> None | List[Completion] | Tuple[List[Completion], int]:
     ...
 
 
@@ -519,23 +512,23 @@ def on_hover(view_id: int, point: Point, hover_zone: int) -> None:
     ...
 
 
-def on_text_command(view_id: int, name: str, args: Optional[Dict[str, Any]]) -> Tuple[str, Optional[Dict[str, Any]]]:
+def on_text_command(view_id: int, name: str, args: None | Dict[str, Any]) -> Tuple[str, None | Dict[str, Any]]:
     ...
 
 
 def on_window_command(
     window_id: int,
     name: str,
-    args: Optional[Dict[str, Any]],
-) -> Tuple[str, Optional[Dict[str, Any]]]:
+    args: None | Dict[str, Any],
+) -> Tuple[str, None | Dict[str, Any]]:
     ...
 
 
-def on_post_text_command(view_id: int, name: str, args: Optional[Dict[str, Any]]) -> None:
+def on_post_text_command(view_id: int, name: str, args: None | Dict[str, Any]) -> None:
     ...
 
 
-def on_post_window_command(window_id: int, name: str, args: Optional[Dict[str, Any]]) -> None:
+def on_post_window_command(window_id: int, name: str, args: None | Dict[str, Any]) -> None:
     ...
 
 
@@ -587,7 +580,7 @@ def on_exit(log_path: str) -> None:
     ...
 
 
-class CommandInputHandler(Generic[InputType]):
+class CommandInputHandler(Generic[T_InputType]):
     def name(self) -> str:
         """
         The command argument name this input handler is editing.
@@ -595,7 +588,7 @@ class CommandInputHandler(Generic[InputType]):
         """
         ...
 
-    def next_input(self, args: Dict[str, Any]) -> Optional[CommandInputHandler[InputType]]:
+    def next_input(self, args: Dict[str, Any]) -> None | CommandInputHandler[T_InputType]:
         """
         Returns the next input after the user has completed this one.
         May return None to indicate no more input is required,
@@ -615,18 +608,18 @@ class CommandInputHandler(Generic[InputType]):
         """Initial text shown in the text entry box. Empty by default."""
         ...
 
-    def initial_selection(self) -> List[Tuple[List[Union[str, Tuple[str, InputType], sublime.ListInputItem]], int]]:
+    def initial_selection(self) -> List[Tuple[List[str | Tuple[str, T_InputType] | sublime.ListInputItem], int]]:
         """A list of 2-element tuplues, defining the initially selected parts of the initial text."""
         ...
 
-    def preview(self, arg: InputType) -> Union[str, sublime.Html]:
+    def preview(self, arg: T_InputType) -> str | sublime.Html:
         """
         Called whenever the user changes the text in the entry box.
         The returned value (either plain text or HTML) will be shown in the preview area of the Command Palette.
         """
         ...
 
-    def validate(self, arg: InputType) -> bool:
+    def validate(self, arg: T_InputType) -> bool:
         """
         Called whenever the user presses enter in the text entry box.
         Return False to disallow the current value.
@@ -638,16 +631,16 @@ class CommandInputHandler(Generic[InputType]):
         ...
 
     @overload
-    def confirm(self, arg: InputType) -> None:
+    def confirm(self, arg: T_InputType) -> None:
         """Called when the input is accepted, after the user has pressed enter and the text has been validated."""
         ...
 
     @overload
-    def confirm(self, arg: InputType, event: EventDict) -> None:
+    def confirm(self, arg: T_InputType, event: EventDict) -> None:
         """Called when the input is accepted, after the user has pressed enter and the text has been validated."""
         ...
 
-    def create_input_handler_(self, args: Dict[str, Any]) -> Optional[CommandInputHandler[InputType]]:
+    def create_input_handler_(self, args: Dict[str, Any]) -> None | CommandInputHandler[T_InputType]:
         ...
 
     def preview_(self, v: str) -> Tuple[str, int]:
@@ -692,7 +685,7 @@ class TextInputHandler(CommandInputHandler[str]):
         ...
 
 
-class ListInputHandler(CommandInputHandler[InputType], Generic[InputType]):
+class ListInputHandler(CommandInputHandler[T_InputType], Generic[T_InputType]):
     """
     ListInputHandlers can be used to accept a choice input from a list items in the Command Palette.
     Return a subclass of this from the input() method of a command.
@@ -700,9 +693,8 @@ class ListInputHandler(CommandInputHandler[InputType], Generic[InputType]):
 
     def list_items(
         self,
-    ) -> Union[
-        List[Union[str, Tuple[str, InputType], sublime.ListInputItem]],
-        Tuple[List[Union[str, Tuple[str, InputType], sublime.ListInputItem]], int],
+    ) -> List[str | Tuple[str, T_InputType] | sublime.ListInputItem] | Tuple[
+        List[str | Tuple[str, T_InputType] | sublime.ListInputItem], int
     ]:
         """
         The items to show in the list. If returning a list of `(str, value)` tuples,
@@ -787,7 +779,7 @@ class Command:
         """
         ...
 
-    def input(self, args: Dict[str, Any]) -> Optional[CommandInputHandler[Any]]:
+    def input(self, args: Dict[str, Any]) -> None | CommandInputHandler[Any]:
         """
         If this returns something other than `None`,
         the user will be prompted for an input before the command is run in the Command Palette.
@@ -801,7 +793,7 @@ class Command:
         """
         ...
 
-    def create_input_handler_(self, args: Dict[str, Any]) -> Optional[CommandInputHandler[Any]]:
+    def create_input_handler_(self, args: Dict[str, Any]) -> None | CommandInputHandler[Any]:
         ...
 
 
@@ -811,7 +803,7 @@ class ApplicationCommand(Command):
     def run_(self, edit_token: int, args: Dict[str, Any]) -> None:
         ...
 
-    run: Callable[..., None]
+    run: AnyCallable
 
 
 class WindowCommand(Command):
@@ -825,7 +817,7 @@ class WindowCommand(Command):
     def run_(self, edit_token: int, args: Dict[str, Any]) -> None:
         ...
 
-    run: Callable[..., None]
+    run: AnyCallable
 
 
 class TextCommand(Command):
@@ -839,7 +831,7 @@ class TextCommand(Command):
     def run_(self, edit_token: int, args: Dict[str, Any]) -> None:
         ...
 
-    run: Callable[..., None]
+    run: AnyCallable
 
 
 class EventListener:
@@ -913,8 +905,8 @@ class TextChangeListener:
         Async version of on_reload_async.
     """
 
-    __key: Optional[int]
-    buffer: Optional[sublime.Buffer]
+    __key: None | int
+    buffer: None | sublime.Buffer
 
     @classmethod
     def is_applicable(cls, buffer: sublime.Buffer) -> bool:
@@ -969,9 +961,9 @@ class MultizipImporter(importlib.abc.MetaPathFinder):
     def find_spec(
         self,
         fullname: str,
-        path: Optional[Sequence[Union[bytes, str]]],
-        target: Optional[Any] = None,
-    ) -> Optional[ModuleSpec]:
+        path: None | Sequence[bytes | str],
+        target: None | Any = None,
+    ) -> None | ModuleSpec:
         """
         :param fullname:
             A unicode string of the module name
@@ -1007,7 +999,7 @@ class ZipResourceReader(importlib.abc.ResourceReader):
         """
         ...
 
-    def open_resource(self, resource: Union[bytes, str, os.PathLike[Any]]) -> io.BytesIO:
+    def open_resource(self, resource: bytes | str | os.PathLike[Any]) -> io.BytesIO:
         """
         :param resource:
             A unicode string of a resource name - should not contain a path
@@ -1021,7 +1013,7 @@ class ZipResourceReader(importlib.abc.ResourceReader):
         """
         ...
 
-    def resource_path(self, resource: Union[bytes, str, os.PathLike[Any]]) -> str:
+    def resource_path(self, resource: bytes | str | os.PathLike[Any]) -> str:
         """
         :param resource:
             A unicode string of a resource name - should not contain a path
@@ -1074,7 +1066,7 @@ class ZipLoader(importlib.abc.InspectLoader):
         """
         ...
 
-    def _get_name_key(self, fullname: str) -> Union[Tuple[None, None], Tuple[str, str]]:
+    def _get_name_key(self, fullname: str) -> Tuple[None, None] | Tuple[str, str]:
         """
         Converts a module name into a pair of package name and key. The
         key is used to access the various data structures in this object.
@@ -1102,7 +1094,7 @@ class ZipLoader(importlib.abc.InspectLoader):
         """
         ...
 
-    def get_resource_reader(self, fullname: str) -> Optional[importlib.abc.ResourceReader]:
+    def get_resource_reader(self, fullname: str) -> None | importlib.abc.ResourceReader:
         """
         :param fullname:
             A unicode string of the module name to get the resource reader for
@@ -1140,7 +1132,7 @@ class ZipLoader(importlib.abc.InspectLoader):
         """
         ...
 
-    def get_source(self, fullname: str) -> Optional[str]:
+    def get_source(self, fullname: str) -> None | str:
         """
         :param fullname:
             A unicode string of the module to get the source for
@@ -1181,7 +1173,7 @@ class ZipLoader(importlib.abc.InspectLoader):
         """
         ...
 
-    def _spec_info(self, fullname: str) -> Union[Tuple[None, None], Tuple[str, bool]]:
+    def _spec_info(self, fullname: str) -> Tuple[None, None] | Tuple[str, bool]:
         """
         :param fullname:
             A unicode string of the module that an
@@ -1202,7 +1194,7 @@ class ZipLoader(importlib.abc.InspectLoader):
         ...
 
 
-override_path: Optional[str] = None
+override_path: None | str = None
 multi_importer: MultizipImporter = MultizipImporter()
 
 
