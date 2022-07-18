@@ -8,5 +8,6 @@ pushd "${PROJECT_DIR}" || exit
 mypy -p plugin
 flake8 .
 black --check .
+isort --check .
 
 popd || exit
