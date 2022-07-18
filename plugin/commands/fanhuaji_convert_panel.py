@@ -1,6 +1,7 @@
-from ..fanhuaji import Fanhuaji
 import sublime
 import sublime_plugin
+
+from ..fanhuaji import Fanhuaji
 
 
 class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):

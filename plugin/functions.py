@@ -1,7 +1,9 @@
+from typing import Any, Dict, Optional
+
+import sublime
+
 from .constant import TEXT_DELIMITER
 from .settings import get_setting
-from typing import Any, Dict, Optional
-import sublime
 
 
 def prepare_fanhuaji_convert_args(view: sublime.View, args: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:

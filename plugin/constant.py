@@ -1,5 +1,6 @@
-import sublime
 import sys
+
+import sublime
 
 PLUGIN_NAME = __package__.partition(".")[0]  # like "AutoSetSyntax"
 

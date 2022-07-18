@@ -1,10 +1,12 @@
-from .constant import ST_VERSION, ST_PLATFORM_ARCH
+from typing import Any, Dict, Tuple
+
+import sublime
+
+from .constant import ST_PLATFORM_ARCH, ST_VERSION
 from .libs import requests
 from .log import print_msg
 from .settings import get_setting
 from .types import TD_ApiConvertResponse, TD_ConverterInfo
-from typing import Any, Dict, Tuple
-import sublime
 
 HTTP_HEADERS = {
     "user-agent": f"Sublime Text {ST_VERSION} ({ST_PLATFORM_ARCH}) Fanhuaji",

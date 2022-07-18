@@ -1,6 +1,8 @@
-from .constant import PLUGIN_NAME
 from typing import Any, Optional
+
 import sublime
+
+from .constant import PLUGIN_NAME
 
 
 def get_settings() -> sublime.Settings:

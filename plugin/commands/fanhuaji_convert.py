@@ -1,10 +1,12 @@
+from typing import Dict, Optional
+
+import sublime
+import sublime_plugin
+
 from ..constant import TEXT_DELIMITER
 from ..fanhuaji import Fanhuaji
 from ..functions import prepare_fanhuaji_convert_args
 from ..log import msg
-from typing import Dict, Optional
-import sublime
-import sublime_plugin
 
 
 class FanhuajiConvertCommand(sublime_plugin.TextCommand):
