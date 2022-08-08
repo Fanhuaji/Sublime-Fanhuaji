@@ -5,3 +5,4 @@ black
 flake8
 isort
 mypy
+pycln

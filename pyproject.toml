@@ -27,18 +27,20 @@ skip_glob = [
   "venv/**",
 ]
 
+[tool.pycln]
+all = true
+exclude = '(\.git|\.?venv|\.mypy_cache|br-.*|branch-.*|libs|stubs|tests/files|typings)/'
+
 [tool.black]
 line-length = 120
 target-version = ['py38']
-
-# regex
 exclude = '''
 /(
   \.git
   | \.?venv
   | \.mypy_cache
-  | br-*
-  | branch-*
+  | br-.*
+  | branch-.*
   | libs
   | stubs
   | tests/files

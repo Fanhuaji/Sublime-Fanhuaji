@@ -46,4 +46,4 @@ jobs:
 
       - name: Do linting
         run: |
-          ./scripts/run_local_tests.sh
+          make check
