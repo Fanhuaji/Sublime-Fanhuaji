@@ -9,12 +9,12 @@ class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
         self.window.show_quick_panel(
             tuple(
                 sublime.QuickPanelItem(
-                    trigger="{name_eng} - {name_chi}".format_map(converter),
-                    annotation=converter["annotation"],
-                    details=converter["details"],
-                    kind=converter["st_kind"],
+                    trigger=f"{converter.name_eng} - {converter.name_chi}",
+                    annotation=converter.annotation,
+                    details=converter.details,
+                    kind=converter.st_kind,
                 )
-                for converter in Fanhuaji.converters
+                for converter in Fanhuaji.CONVERTERS
             ),
             self.on_done,
         )
@@ -23,13 +23,13 @@ class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
         if index == -1:
             return
 
-        converter = Fanhuaji.converters[index]
+        converter = Fanhuaji.CONVERTERS[index]
 
         self.window.run_command(
             "fanhuaji_convert",
             {
                 "args": {
-                    "converter": converter["name_api"],
+                    "converter": converter.name_api,
                 },
             },
         )

@@ -1,29 +1,49 @@
-from typing import Dict, List, Optional, Tuple, TypedDict
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Dict, List, Optional, Tuple
 
 
-class TD_ConverterInfo(TypedDict):
-    name_api: str  # like "WikiTraditional"
-    name_eng: str  # like "Traditional (Wikipeida)"
-    name_chi: str  # like "維基繁體化"
-    details: str  # like "只使用維基百科的詞庫將文字轉換為繁體。"
-    annotation: str  # like "（少用）"
-    st_kind: Tuple[int, str, str]  # like (sublime.KIND_ID_AMBIGUOUS, "繁", "")
+@dataclass
+class ConverterInfo:
+    name_api: str
+    """Like `"WikiTraditional"`."""
+    name_eng: str
+    """Like `"Traditional (Wikipeida)"`."""
+    name_chi: str
+    """Like `"維基繁體化"`."""
+    details: str
+    """Like `"只使用維基百科的詞庫將文字轉換為繁體。"`."""
+    annotation: str
+    """Like `"（少用）"`."""
+    st_kind: Tuple[int, str, str]
+    """Like `(sublime.KIND_ID_AMBIGUOUS, "繁", "")`."""
 
 
-class TD_ApiRevisionInfo(TypedDict):
+@dataclass
+class ApiResponseBase:
+    code: int
+    msg: str
+    revisions: ApiRevisionInfo
+    execTime: float
+
+
+@dataclass
+class ApiRevisionInfo:
     build: str
     msg: str
     time: int
 
 
-class TD_ApiBaseResponse(TypedDict):
-    code: int
-    msg: str
-    revisions: TD_ApiRevisionInfo
-    execTime: float
+@dataclass
+class ApiConvertResponse(ApiResponseBase):
+    """Response of `/convert`."""
+
+    data: ApiConvertResponseData
 
 
-class TD_ApiConvertResponseData(TypedDict):
+@dataclass
+class ApiConvertResponseData:
     converter: str
     text: str
     diff: Optional[str]
@@ -32,26 +52,17 @@ class TD_ApiConvertResponseData(TypedDict):
     textFormat: str
 
 
-class TD_ApiConvertResponse(TD_ApiBaseResponse):
-    data: TD_ApiConvertResponseData
+@dataclass
+class ApiServiceInfoResponse(ApiResponseBase):
+    """Response of `/service-info`."""
+
+    data: ApiServiceInfoResponseData
 
 
-class TD_ApiConvertResponseDataConverterInfo(TypedDict):
-    name: str
-    desc: str
-    cat: str
-
-
-class TD_ApiConvertResponseDataModuleInfo(TypedDict):
-    name: str
-    desc: str
-    cat: str
-    isManual: bool
-
-
-class TD_ApiServiceInfoResponseData(TypedDict):
-    converters: Dict[str, TD_ApiConvertResponseDataConverterInfo]
-    modules: Dict[str, TD_ApiConvertResponseDataModuleInfo]
+@dataclass
+class ApiServiceInfoResponseData:
+    converters: Dict[str, ApiConvertResponseDataConverterInfo]
+    modules: Dict[str, ApiConvertResponseDataModuleInfo]
     converterCategories: Dict[str, str]
     moduleCategories: Dict[str, str]
     textFormats: Dict[str, str]
@@ -60,5 +71,15 @@ class TD_ApiServiceInfoResponseData(TypedDict):
     maxPostBodyBytes: int
 
 
-class TD_ApiServiceInfoResponse(TD_ApiBaseResponse):
-    data: TD_ApiServiceInfoResponseData
+@dataclass
+class ApiConvertResponseDataConverterInfo:
+    name: str
+    desc: str
+    cat: str
+
+
+class ApiConvertResponseDataModuleInfo:
+    name: str
+    desc: str
+    cat: str
+    isManual: bool

@@ -6,7 +6,7 @@ mypy_path = 'typings:stubs'
 
 [[tool.mypy.overrides]]
 module = [
-    "plugin.libs.*",
+    ".vendor.*",
 ]
 ignore_errors = true
 ignore_missing_imports = true
@@ -29,7 +29,7 @@ skip_glob = [
 
 [tool.pycln]
 all = true
-exclude = '(\.git|\.?venv|\.mypy_cache|br-.*|branch-.*|libs|stubs|tests/files|typings)/'
+exclude = '(\.git|\.?venv|\.mypy_cache|br-.*|branch-.*|libs|stubs|tests/files|typings|vendor)/'
 
 [tool.black]
 line-length = 120
@@ -45,6 +45,7 @@ exclude = '''
   | stubs
   | tests/files
   | typings
+  | vendor
 )/
 '''
 
@@ -61,6 +62,7 @@ exclude = [
 ignore = [
   '**/.venv',
   '**/libs',
+  '**/vendor',
 ]
 stubPath = 'typings'
 pythonVersion = '3.8'

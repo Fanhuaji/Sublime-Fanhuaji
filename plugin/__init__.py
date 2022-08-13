@@ -1,15 +1,4 @@
-# import all listeners and commands
-from .commands.fanhuaji_convert import FanhuajiConvertCommand
-from .commands.fanhuaji_convert_panel import FanhuajiConvertPanelCommand
-
-__all__ = (
-    # ST: core
-    "plugin_loaded",
-    "plugin_unloaded",
-    # ST: commands
-    "FanhuajiConvertCommand",
-    "FanhuajiConvertPanelCommand",
-)
+from .commands import *  # noqa: F401, F403
 
 
 def plugin_loaded() -> None:
