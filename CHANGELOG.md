@@ -1,5 +1,9 @@
 # Fanhuaji （繁化姬）
 
+## 2.0.4
+
+- refactor: utilize `dataclass` and `dacite`
+
 ## 2.0.3
 
 - fix: modules should be reloaded when update plugin
