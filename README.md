@@ -1,7 +1,7 @@
 # Sublime-Fanhuaji （繁化姬）
 
 [![Required ST Build](https://img.shields.io/badge/ST-4105+-orange.svg?style=flat-square&logo=sublime-text)](https://www.sublimetext.com)
-[![GitHub Actions](https://img.shields.io/github/workflow/status/Fanhuaji/Sublime-Fanhuaji/Python?style=flat-square)](https://github.com/Fanhuaji/Sublime-Fanhuaji/actions)
+[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/Fanhuaji/Sublime-Fanhuaji/python.yml?branch=st4&style=flat-square)](https://github.com/Fanhuaji/Sublime-Fanhuaji/actions)
 [![Package Control](https://img.shields.io/packagecontrol/dt/Fanhuaji?style=flat-square)](https://packagecontrol.io/packages/Fanhuaji)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/Fanhuaji/Sublime-Fanhuaji?style=flat-square&logo=github)](https://github.com/Fanhuaji/Sublime-Fanhuaji/tags)
 [![Project license](https://img.shields.io/github/license/Fanhuaji/Sublime-Fanhuaji?style=flat-square&logo=github)](https://github.com/Fanhuaji/Sublime-Fanhuaji/blob/st4/LICENSE)
