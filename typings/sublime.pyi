@@ -1,10 +1,25 @@
 # This file is maintained on https://github.com/jfcherng-sublime/ST-API-stubs
-# ST version: 4131
+# ST version: 4136
 
 from __future__ import annotations
 
-# __future__ must be the first import
-from _sublime_typing import (
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    Generic,
+    Iterable,
+    Iterator,
+    List,
+    Literal,
+    Mapping,
+    Reversible,
+    Sequence,
+    Tuple,
+    TypeVar,
+)
+
+from _sublime_types import (
     Callback0,
     Callback1,
     CommandArgsDict,
@@ -19,7 +34,12 @@ from _sublime_typing import (
     T_ExpandableVar,
     Vector,
 )
-from typing import Any, Callable, Dict, Iterable, Iterator, List, Literal, Mapping, Reversible, Sequence, Tuple
+
+# ----- #
+# types #
+# ----- #
+
+T = TypeVar("T")
 
 # -------- #
 # ST codes #
@@ -593,6 +613,24 @@ def get_macro() -> List[CommandArgsDict]:
     ...
 
 
+def project_history() -> List[str]:
+    """
+    Returns paths of recently opened `.sublime-project` / `.sublime-workspace` files.
+
+    @version ST(>=4145)
+    """
+    ...
+
+
+def folder_history() -> List[str]:
+    """
+    Returns paths of recently opened folders.
+
+    @version ST(>=4145)
+    """
+    ...
+
+
 class Window:
     """This class represents windows and provides an interface of methods to interact with them."""
 
@@ -687,8 +725,6 @@ class Window:
         - `TRANSIENT`: Open the file as a preview only: it won't have a tab assigned it until modified
         - `FORCE_GROUP`: don't select the file if it's opened in a different group
         - `ADD_TO_SELECTION` (4050): Add the file to the currently selected sheets in this group
-        - `ADD_TO_SELECTION_SEMI_TRANSIENT` (4075): Add the file to the currently selected sheets in this group,
-                                                    as a semi-transient view
         - `SEMI_TRANSIENT`: open the file in semi-transient mode
         - `REPLACE_MRU`: replace the active sheet in the group
         - `CLEAR_TO_RIGHT` (4100): unselect all files to the right of the active sheet
@@ -829,6 +865,10 @@ class Window:
 
     def transient_view_in_group(self, group: int) -> None | View:
         """Returns the transient `View` in the given `group` if any."""
+        ...
+
+    def promote_sheet(self, sheet: Sheet) -> None:
+        """Promote the `sheet` parameter if semi-transient or transient."""
         ...
 
     def layout(self) -> Layout:
@@ -2435,7 +2475,6 @@ class Buffer:
 
 
 class Settings:
-
     settings_id: int
 
     def __init__(self, id: int) -> None:
@@ -2869,9 +2908,9 @@ class SymbolRegion:
         ...
 
 
-class ListInputItem:
+class ListInputItem(Generic[T]):
     text: str
-    value: Any
+    value: T
     details: str
     annotation: str
     kind: CompletionKind
@@ -2879,7 +2918,7 @@ class ListInputItem:
     def __init__(
         self,
         text: str,
-        value: Any,
+        value: T,
         details: str = "",
         annotation: str = "",
         kind: CompletionKind = KIND_AMBIGUOUS,
