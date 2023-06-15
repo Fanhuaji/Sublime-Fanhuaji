@@ -27,6 +27,12 @@ skip_glob = [
   "venv/**",
 ]
 
+[tool.autoflake]
+quiet = true
+recursive = true
+remove-all-unused-imports = true
+exclude = '\.git,\.?venv,\.mypy_cache,br-.*,branch-.*,vendor,libs,stubs,tests/files,typings,blackduck,extra'
+
 [tool.black]
 line-length = 120
 target-version = ['py38']
@@ -62,3 +68,8 @@ ignore = [
 ]
 stubPath = 'typings'
 pythonVersion = '3.8'
+
+[tool.ruff]
+select = ["E", "F", "W"]
+line-length = 120
+target-version = 'py38'
