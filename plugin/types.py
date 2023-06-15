@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Tuple
 
 
 @dataclass
@@ -16,7 +15,7 @@ class ConverterInfo:
     """Like `"只使用維基百科的詞庫將文字轉換為繁體。"`."""
     annotation: str
     """Like `"（少用）"`."""
-    st_kind: Tuple[int, str, str]
+    st_kind: tuple[int, str, str]
     """Like `(sublime.KIND_ID_AMBIGUOUS, "繁", "")`."""
 
 
@@ -46,9 +45,9 @@ class ApiConvertResponse(ApiResponseBase):
 class ApiConvertResponseData:
     converter: str
     text: str
-    diff: Optional[str]
-    jpTextStyles: List[str]
-    usedModules: List[str]
+    diff: str | None
+    jpTextStyles: list[str]
+    usedModules: list[str]
     textFormat: str
 
 
@@ -61,12 +60,12 @@ class ApiServiceInfoResponse(ApiResponseBase):
 
 @dataclass
 class ApiServiceInfoResponseData:
-    converters: Dict[str, ApiConvertResponseDataConverterInfo]
-    modules: Dict[str, ApiConvertResponseDataModuleInfo]
-    converterCategories: Dict[str, str]
-    moduleCategories: Dict[str, str]
-    textFormats: Dict[str, str]
-    diffTemplates: Dict[str, str]
+    converters: dict[str, ApiConvertResponseDataConverterInfo]
+    modules: dict[str, ApiConvertResponseDataModuleInfo]
+    converterCategories: dict[str, str]
+    moduleCategories: dict[str, str]
+    textFormats: dict[str, str]
+    diffTemplates: dict[str, str]
     allowEmptyApiKey: bool
     maxPostBodyBytes: int
 

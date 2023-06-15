@@ -1,4 +1,6 @@
-from typing import Any, Dict
+from __future__ import annotations
+
+from typing import Any
 
 import sublime
 
@@ -119,7 +121,7 @@ class Fanhuaji:
     """
 
     @classmethod
-    def convert(cls, args: Dict[str, Any]) -> ApiConvertResponse:
+    def convert(cls, args: dict[str, Any]) -> ApiConvertResponse:
         if get_setting("debug"):
             print_msg(f"Request {args = }")
 

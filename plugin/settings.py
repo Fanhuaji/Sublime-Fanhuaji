@@ -1,4 +1,6 @@
-from typing import Any, Optional
+from __future__ import annotations
+
+from typing import Any
 
 import sublime
 
@@ -9,5 +11,5 @@ def get_settings() -> sublime.Settings:
     return sublime.load_settings(f"{PLUGIN_NAME}.sublime-settings")
 
 
-def get_setting(key: str, default: Optional[Any] = None) -> Any:
+def get_setting(key: str, default: Any | None = None) -> Any:
     return get_settings().get(key, default)

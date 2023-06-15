@@ -1,4 +1,6 @@
-from typing import Any, Dict, Optional
+from __future__ import annotations
+
+from typing import Any
 
 import sublime
 import sublime_plugin
@@ -15,7 +17,7 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
     def is_visible(self) -> bool:
         return self.is_enabled()
 
-    def run(self, edit: sublime.Edit, args: Optional[Dict] = None) -> None:
+    def run(self, edit: sublime.Edit, args: dict | None = None) -> None:
         args = self._prepare_fanhuaji_convert_args(self.view, args)
 
         try:
@@ -35,8 +37,8 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
             self.view.replace(edit, region, text)
 
     @staticmethod
-    def _prepare_fanhuaji_convert_args(view: sublime.View, args: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-        _args: Dict[str, Any] = get_setting("convert_params")
+    def _prepare_fanhuaji_convert_args(view: sublime.View, args: dict[str, Any] | None = None) -> dict[str, Any]:
+        _args: dict[str, Any] = get_setting("convert_params")
 
         # 轉換模組
         if "modules" in _args and isinstance(_args["modules"], dict):
