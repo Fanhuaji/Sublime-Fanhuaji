@@ -1,5 +1,10 @@
 # Fanhuaji （繁化姬）
 
+## 2.0.5
+
+- refactor: use more py38 syntax
+- chore(deps): update `dacite` 1.8.1
+
 ## 2.0.4
 
 - refactor: utilize `dataclass` and `dacite`
