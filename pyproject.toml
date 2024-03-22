@@ -3,6 +3,7 @@
 check_untyped_defs = true
 strict_optional = true
 mypy_path = 'typings:stubs'
+python_version = "3.8"
 
 [[tool.mypy.overrides]]
 module = ["plugin.libs.*", ".vendor.*"]
