@@ -1,9 +1,15 @@
+UV_INSTALL_FLAGS :=
+
 .PHONY: all
 all:
 
 .PHONY: install
 install:
-	python -m pip install -U pip -r requirements.txt
+	uv pip install $(UV_INSTALL_FLAGS) -r requirements.txt
+
+.PHONY: pip-compile
+pip-compile:
+	uv pip compile --upgrade requirements.in -o requirements.txt
 
 .PHONY: ci-check
 ci-check:
