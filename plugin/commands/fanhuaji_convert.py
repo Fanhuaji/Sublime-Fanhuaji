@@ -26,7 +26,7 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
             sublime.error_message(msg(str(e)))
             return
 
-        if int(result.code) != 0:
+        if not result.is_ok:
             sublime.error_message(msg(f"Error message from the server: {result.msg}"))
             return
 

@@ -6,7 +6,7 @@ mypy_path = 'typings:stubs'
 python_version = "3.8"
 
 [[tool.mypy.overrides]]
-module = ["plugin.libs.*", ".vendor.*"]
+module = ["plugin.libs.*"]
 ignore_errors = true
 ignore_missing_imports = true
 
@@ -44,7 +44,7 @@ exclude = [
 ]
 
 [tool.ruff.lint]
-select = ["E", "F", "W", "I", "UP"]
+select = ["E", "F", "W", "I", "UP", "FURB"]
 ignore = ["E203"]
 
 [tool.ruff.lint.per-file-ignores]
