@@ -1,5 +1,11 @@
 # Fanhuaji （繁化姬）
 
+## 3.0.0
+
+This release requires Package Control v4 or higher.
+
+- refactor: use py38 libs (`pydantic`, `requests`) and remove vendor libs
+
 ## 2.0.5
 
 - refactor: use more py38 syntax
