@@ -1,2 +1,3 @@
-mypy
-ruff>=0.3
+pydantic>=2.7,<3
+requests>=2.15.1,<3
+typing_extensions>=4.12

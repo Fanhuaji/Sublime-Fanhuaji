@@ -1,0 +1,12 @@
+{
+    "*": {
+        "*": [
+            "annotated-types",
+            "eval-type-backport",
+            "pydantic",
+            "pydantic-core",
+            "requests",
+            "typing-extensions"
+        ]
+    }
+}
