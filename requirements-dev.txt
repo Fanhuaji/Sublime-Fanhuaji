@@ -20,15 +20,18 @@ requests==2.32.3
     # via -r requirements.in
 ruff==0.4.6
     # via -r requirements-dev.in
+tomli==2.0.1
+    # via mypy
 types-requests==2.32.0.20240523
     # via -r requirements-dev.in
 typing-extensions==4.12.0
     # via
     #   -r requirements.in
+    #   annotated-types
     #   mypy
     #   pydantic
     #   pydantic-core
-urllib3==2.2.1
+urllib3==2.2.2
     # via
     #   requests
     #   types-requests

@@ -17,7 +17,8 @@ requests==2.32.3
 typing-extensions==4.12.0
     # via
     #   -r requirements.in
+    #   annotated-types
     #   pydantic
     #   pydantic-core
-urllib3==2.2.1
+urllib3==2.2.2
     # via requests
