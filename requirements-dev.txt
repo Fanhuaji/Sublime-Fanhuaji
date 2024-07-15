@@ -2,33 +2,35 @@
 #    uv pip compile requirements-dev.in -o requirements-dev.txt
 annotated-types==0.7.0
     # via pydantic
-certifi==2024.2.2
+certifi==2024.8.30
     # via requests
 charset-normalizer==3.3.2
     # via requests
-idna==3.7
+idna==3.8
     # via requests
-mypy==1.10.0
+mypy==1.11.2
     # via -r requirements-dev.in
 mypy-extensions==1.0.0
     # via mypy
-pydantic==2.7.2
+pydantic==2.9.0
     # via -r requirements.in
-pydantic-core==2.18.3
+pydantic-core==2.23.2
     # via pydantic
 requests==2.32.3
     # via -r requirements.in
-ruff==0.4.6
+ruff==0.6.4
     # via -r requirements-dev.in
-types-requests==2.32.0.20240523
+types-requests==2.32.0.20240907
     # via -r requirements-dev.in
-typing-extensions==4.12.0
+typing-extensions==4.12.2
     # via
     #   -r requirements.in
     #   mypy
     #   pydantic
     #   pydantic-core
-urllib3==2.2.1
+tzdata==2024.1
+    # via pydantic
+urllib3==2.2.2
     # via
     #   requests
     #   types-requests
