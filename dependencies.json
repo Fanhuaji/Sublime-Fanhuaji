@@ -2,11 +2,14 @@
     "*": {
         "*": [
             "annotated-types",
+            "charset-normalizer",
             "eval-type-backport",
+            "idna",
             "pydantic",
             "pydantic-core",
             "requests",
-            "typing-extensions"
+            "typing-extensions",
+            "urllib3"
         ]
     }
 }
