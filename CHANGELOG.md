@@ -1,5 +1,11 @@
 # Fanhuaji （繁化姬）
 
+## 3.0.1
+
+- fix: updated `requests` lib requires more deps
+
+  https://github.com/packagecontrol/channel/pull/26#issuecomment-2321991887
+
 ## 3.0.0
 
 This release requires Package Control v4 or higher.
