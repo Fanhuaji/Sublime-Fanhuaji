@@ -64,6 +64,6 @@ class FanhuajiConvertCommand(sublime_plugin.TextCommand):
         _args["text"] = Fanhuaji.TEXT_DELIMITER.join(view.substr(region) for region in view.sel())
         _args["diffEnable"] = False
 
-        _args.update(args or {})
+        _args |= args or {}
 
         return _args

@@ -1,22 +1,9 @@
 from __future__ import annotations
 
-import sys
 from abc import ABC
 from dataclasses import dataclass
-from enum import Enum
-from typing import Generic, TypeVar
 
 from pydantic import BaseModel
-
-_T = TypeVar("_T")
-
-if sys.version_info >= (3, 11):
-    from enum import StrEnum
-else:
-
-    class StrEnum(str, Enum):
-        __str__ = str.__str__  # type: ignore
-        __format__ = str.__format__  # type: ignore
 
 
 @dataclass
@@ -41,14 +28,14 @@ class ApiRevisionInfo(BaseModel):
     time: int
 
 
-class ApiResponseBase(BaseModel, Generic[_T], ABC):
+class ApiResponseBase[T](BaseModel, ABC):
     """This class describes the base API response."""
 
     code: int
     msg: str
     revisions: ApiRevisionInfo
     execTime: float
-    data: _T
+    data: T
 
     @property
     def is_ok(self) -> bool:

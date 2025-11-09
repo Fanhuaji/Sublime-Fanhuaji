@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from enum import StrEnum
 from typing import Any
 
 import requests
@@ -7,7 +8,7 @@ import sublime
 from requests import ConnectionError, RequestException
 
 from .constant import ST_PLATFORM_ARCH, ST_VERSION
-from .data_types import ApiConvertResponse, ConverterInfo, StrEnum
+from .data_types import ApiConvertResponse, ConverterInfo
 from .log import print_msg
 from .settings import get_setting
 
@@ -16,7 +17,7 @@ HTTP_HEADERS = {
 }
 
 
-FanhuajiConverters = (
+FANHUAJI_CONVERTERS = (
     ConverterInfo(
         name_api="Simplified",
         name_eng="Simplified Chinese",

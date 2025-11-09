@@ -3,7 +3,7 @@ from __future__ import annotations
 import sublime
 import sublime_plugin
 
-from ..fanhuaji import FanhuajiConverters
+from ..fanhuaji import FANHUAJI_CONVERTERS
 
 
 class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
@@ -16,7 +16,7 @@ class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
                     details=converter.details,
                     kind=converter.st_kind,
                 )
-                for converter in FanhuajiConverters
+                for converter in FANHUAJI_CONVERTERS
             ),
             self.on_done,
         )
@@ -25,7 +25,7 @@ class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
         if index == -1:
             return
 
-        converter = FanhuajiConverters[index]
+        converter = FANHUAJI_CONVERTERS[index]
 
         self.window.run_command(
             "fanhuaji_convert",
