@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from enum import StrEnum
 from typing import Any
 
 import requests
@@ -8,7 +7,9 @@ import sublime
 from requests import ConnectionError, RequestException
 
 from .constant import ST_PLATFORM_ARCH, ST_VERSION
-from .data_types import ApiConvertResponse, ConverterInfo
+from .converters import FanhuajiEndpoint
+from .data_types import ApiConvertResponse
+from .errors import FanhuajiError
 from .log import print_msg
 from .settings import get_setting
 
@@ -17,85 +18,9 @@ HTTP_HEADERS = {
 }
 
 
-FANHUAJI_CONVERTERS = (
-    ConverterInfo(
-        name_api="Simplified",
-        name_eng="Simplified Chinese",
-        name_chi="简体化",
-        details="将文字转换为简体。",
-        st_kind=(sublime.KIND_ID_COLOR_ORANGISH, "简", ""),
-    ),
-    ConverterInfo(
-        name_api="Traditional",
-        name_eng="Traditional Chinese",
-        name_chi="繁體化",
-        details="將文字轉換為繁體。",
-        st_kind=(sublime.KIND_ID_COLOR_ORANGISH, "繁", ""),
-    ),
-    ConverterInfo(
-        name_api="China",
-        name_eng="China Localization",
-        name_chi="中国化",
-        details="将文字转换为简体，并使用中国地区的词语修正。",
-        st_kind=(sublime.KIND_ID_COLOR_CYANISH, "中", ""),
-    ),
-    ConverterInfo(
-        name_api="Hongkong",
-        name_eng="Hongkong Localization",
-        name_chi="香港化",
-        details="將文字轉換為繁體，並使用香港地區的詞語修正。",
-        st_kind=(sublime.KIND_ID_COLOR_CYANISH, "港", ""),
-    ),
-    ConverterInfo(
-        name_api="Taiwan",
-        name_eng="Taiwan Localization",
-        name_chi="台灣化",
-        details="將文字轉換為繁體，並使用台灣地區的詞語修正。",
-        st_kind=(sublime.KIND_ID_COLOR_CYANISH, "台", ""),
-    ),
-    ConverterInfo(
-        name_api="Pinyin",
-        name_eng="Pinyin",
-        name_chi="拼音化",
-        details="將文字轉為拼音。",
-        st_kind=(sublime.KIND_ID_COLOR_GREENISH, "拼", ""),
-    ),
-    ConverterInfo(
-        name_api="Bopomofo",
-        name_eng="Bopomofo",
-        name_chi="注音化",
-        details="將文字轉為注音。",
-        st_kind=(sublime.KIND_ID_COLOR_GREENISH, "注", ""),
-    ),
-    ConverterInfo(
-        name_api="Mars",
-        name_eng="Mars",
-        name_chi="火星化",
-        details="將文字轉換為繁體火星文。",
-        st_kind=(sublime.KIND_ID_COLOR_GREENISH, "火", ""),
-    ),
-    ConverterInfo(
-        name_api="WikiSimplified",
-        name_eng="Simplified Chinese (Wikipeida)",
-        name_chi="维基简体化",
-        details="只使用维基百科的词库将文字转换为简体。",
-        annotation="（少用）",
-        st_kind=(sublime.KIND_ID_COLOR_LIGHT, "简", ""),
-    ),
-    ConverterInfo(
-        name_api="WikiTraditional",
-        name_eng="Traditional Chinese (Wikipeida)",
-        name_chi="維基繁體化",
-        details="只使用維基百科的詞庫將文字轉換為繁體。",
-        annotation="（少用）",
-        st_kind=(sublime.KIND_ID_COLOR_LIGHT, "繁", ""),
-    ),
-)
-
-
-class FanhuajiEndpoint(StrEnum):
-    CONVERT = "convert"
-    SERVICE_INFO = "service-info"
+def _serialize_replace_dict(d: dict[str, str]) -> str:
+    """Serialize a key=value replacement dict into the API's newline-delimited format."""
+    return "\n".join(f"{old}={new}" for old, new in d.items())
 
 
 class Fanhuaji:
@@ -115,6 +40,37 @@ class Fanhuaji:
         return f"{cls.base_url()}/{endpoint}"
 
     @classmethod
+    def build_convert_args(cls, view: sublime.View, args: dict[str, Any] | None = None) -> dict[str, Any]:
+        args = args or {}
+        pref_args: dict[str, Any] = get_setting("convert_params")
+
+        # 轉換模組
+        if "modules" in pref_args and isinstance(pref_args["modules"], dict):
+            pref_args["modules"] = sublime.encode_value(pref_args["modules"])
+
+        # 轉換前取代
+        if "userPreReplace" in pref_args and isinstance(pref_args["userPreReplace"], dict):
+            pref_args["userPreReplace"] = _serialize_replace_dict(pref_args["userPreReplace"])
+
+        # 轉換後取代
+        if "userPostReplace" in pref_args and isinstance(pref_args["userPostReplace"], dict):
+            pref_args["userPostReplace"] = _serialize_replace_dict(pref_args["userPostReplace"])
+
+        # 保護字詞
+        if "userProtectReplace" in pref_args and isinstance(pref_args["userProtectReplace"], list):
+            pref_args["userProtectReplace"] = "\n".join(pref_args["userProtectReplace"])
+
+        # 參數： API 全域
+        pref_args["apiKey"] = get_setting("api_key")
+        pref_args["prettify"] = False
+
+        # 參數： API convert 端點
+        pref_args["text"] = cls.TEXT_DELIMITER.join(view.substr(region) for region in view.sel())
+        pref_args["diffEnable"] = False
+
+        return pref_args | args
+
+    @classmethod
     def convert(cls, args: dict[str, Any]) -> ApiConvertResponse:
         if get_setting("debug"):
             print_msg(f"Request {args = }")
@@ -127,8 +83,8 @@ class Fanhuaji:
                 verify=bool(get_setting("ssl_cert_verification")),
             )
         except ConnectionError as e:
-            raise RuntimeError(f"Failed to reach the server: {e}") from e
+            raise FanhuajiError(f"Failed to reach the server: {e}") from e
         except RequestException as e:
-            raise RuntimeError(f"Request exception: {e}") from e
+            raise FanhuajiError(f"Request exception: {e}") from e
 
         return ApiConvertResponse.model_validate_json(response.content)

@@ -1,12 +1,15 @@
 from __future__ import annotations
 
+from typing import override
+
 import sublime
 import sublime_plugin
 
-from ..fanhuaji import FANHUAJI_CONVERTERS
+from ..converters import FANHUAJI_CONVERTERS
 
 
 class FanhuajiConvertPanelCommand(sublime_plugin.WindowCommand):
+    @override
     def run(self) -> None:
         self.window.show_quick_panel(
             tuple(

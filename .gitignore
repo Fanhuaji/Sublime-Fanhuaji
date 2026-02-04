@@ -8,3 +8,6 @@ Thumbs.db
 .mypy_cache/
 .venv/
 __pycache__/
+
+# others
+.claude/

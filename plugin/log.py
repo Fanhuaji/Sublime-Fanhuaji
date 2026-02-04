@@ -14,12 +14,10 @@ def msg(message: str) -> str:
     return f"[{PLUGIN_NAME}] {message}"
 
 
-def print_msg(message: str, show_message: bool = True) -> None:
+def print_msg(message: str) -> None:
     """
     Prints plugin message to ST's console.
 
-    :param      message:       The message
-    :param      show_message:  Whether to print the message
+    :param      message:  The message
     """
-    if show_message:
-        print(msg(message))
+    print(msg(message))
