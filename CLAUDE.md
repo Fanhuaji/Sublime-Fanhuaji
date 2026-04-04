@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Sublime Text plugin for [Fanhuaji (繁化姬)](https://zhconvert.org) — a Chinese text conversion service. The plugin calls the zhconvert.org REST API to convert selected text between Simplified/Traditional Chinese variants, Pinyin, Bopomofo, etc. It does **not** implement any conversion logic itself.
 
-Primary branch: `st4`. Requires Sublime Text build 4201+ (Python 3.13).
+Primary branch: `st4`. Requires Sublime Text build 4201+ (Python 3.14).
 
 ## Development Commands
 
@@ -56,9 +56,19 @@ plugin/
 
 ## Code Conventions
 
-- Python 3.13+ features are used (generics syntax `class Foo[T]`, `StrEnum`, `override`)
+- Python 3.14+ features are used (generics syntax `class Foo[T]`, `StrEnum`, `override`; no `from __future__ import annotations` needed — PEP 649 is default)
 - Pydantic v2 for API response validation (`model_validate_json`)
 - Ruff for linting (rules: E, F, W, I, UP, FURB, SIM) and formatting; line length 120
 - mypy with `strict_optional` and `check_untyped_defs`; type stubs in `typings/`
-- All source files start with `from __future__ import annotations`
 - Runtime dependencies are declared in both `pyproject.toml` (for dev) and `dependencies.json` (for Package Control's dependency system)
+
+## Approach
+
+- Think before acting. Read existing files before writing code.
+- Be concise in output but thorough in reasoning.
+- Prefer editing over rewriting whole files.
+- Do not re-read files you have already read unless the file may have changed.
+- Test your code before declaring done.
+- No sycophantic openers or closing fluff.
+- Keep solutions simple and direct.
+- User instructions always override this file.

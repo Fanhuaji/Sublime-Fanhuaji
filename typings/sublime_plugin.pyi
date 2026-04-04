@@ -989,7 +989,7 @@ class MultizipImporter(importlib.abc.MetaPathFinder):
         ...
 
 
-class ZipResourceReader(importlib.abc.ResourceReader):
+class ZipResourceReader(Any):  # importlib.abc.ResourceReader was removed in Python 3.14
     """
     Implements the resource reader interface introduced in Python 3.7
     """
@@ -1102,7 +1102,7 @@ class ZipLoader(importlib.abc.InspectLoader):
         """
         ...
 
-    def get_resource_reader(self, fullname: str) -> None | importlib.abc.ResourceReader:
+    def get_resource_reader(self, fullname: str) -> None | Any:  # importlib.abc.ResourceReader was removed in Python 3.14
         """
         :param fullname:
             A unicode string of the module name to get the resource reader for
