@@ -13,8 +13,8 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-  "mypy>=1.14",
-  "ruff>=0.13",
+  "mypy>=1.20",
+  "ruff>=0.15",
   "types-requests",
 ]
 
