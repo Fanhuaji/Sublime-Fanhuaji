@@ -1,5 +1,9 @@
 # Fanhuaji （繁化姬）
 
+## 4.0.0
+
+- chore: bump Python 3.14 (ST >= 4203)
+
 ## 3.0.1
 
 - fix: updated `requests` lib requires more deps
