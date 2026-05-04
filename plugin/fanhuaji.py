@@ -2,9 +2,11 @@ from typing import Any
 
 import requests
 import sublime
-from requests import ConnectionError, RequestException
+from requests import ConnectionError
+from requests import RequestException
 
-from .constant import ST_PLATFORM_ARCH, ST_VERSION
+from .constant import ST_PLATFORM_ARCH
+from .constant import ST_VERSION
 from .converters import FanhuajiEndpoint
 from .data_types import ApiConvertResponse
 from .errors import FanhuajiError

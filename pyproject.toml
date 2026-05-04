@@ -78,5 +78,8 @@ select = [
 ]
 ignore = ["E203"]
 
+[tool.ruff.lint.isort]
+force-single-line = true
+
 [tool.ruff.lint.per-file-ignores]
 "boot.py" = ["E402"]
