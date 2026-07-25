@@ -87,4 +87,7 @@ class Fanhuaji:
         except RequestException as e:
             raise FanhuajiError(f"Request exception: {e}") from e
 
-        return ApiConvertResponse.model_validate_json(response.content)
+        try:
+            return ApiConvertResponse.model_validate_json(response.content)
+        except Exception as e:
+            raise FanhuajiError(f"Failed to parse response: {response.text}") from e
