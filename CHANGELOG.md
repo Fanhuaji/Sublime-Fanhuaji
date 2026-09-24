@@ -1,5 +1,12 @@
 # Fanhuaji （繁化姬）
 
+## 4.0.1
+
+- fix: surface the raw response body when parsing API reply fails
+- fix: workaround pydantic core version mismatch
+
+  https://github.com/jfcherng-sublime/ST-AutoSetSyntax/issues/36
+
 ## 4.0.0
 
 - chore: bump Python 3.14 (ST >= 4203)
