@@ -10,6 +10,7 @@
 .markdownlint.yaml export-ignore
 .style.yapf export-ignore
 .travis.yml export-ignore
+AGENT.md export-ignore
 cliff.toml export-ignore
 codecov.yml export-ignore
 docs/ export-ignore
